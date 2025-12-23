@@ -33,7 +33,10 @@ Route::post('/investasi-store', [InputDataController::class, 'storeInvestasi'])-
 
 
 Route::get('/self-reward', [InputDataController::class, 'createSelfReward'])->name('self.reward.create');
+Route::post('/self-reward/store', [InputDataController::class, 'storeSelfReward'])->name('self.reward.store');
+
 Route::get('/pengeluaran', [InputDataController::class, 'createPengeluaran'])->name('pengeluaran.create');
+Route::get('/pengeluaran-store', [InputDataController::class, 'storePengeluaran'])->name('pengeluaran.store');
 
 
 

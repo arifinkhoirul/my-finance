@@ -71,6 +71,14 @@ const startLoadingInvestasi = () => {
 
 // ----------------------------------
 
+// ----------------------------------
+const moveLoadingSelfReward = ref(true)
+
+const startLoadingSelfReward = () => {
+    moveLoadingSelfReward.value = false
+}
+// ----------------------------------
+
 
 // ---------------------------------
 const page = usePage()
@@ -256,8 +264,8 @@ function formatShortRupiah(value) {
                 </div>
 
                 <p class="text-lg text-gray-500">Investasi</p>
-                <p class="text-3xl font-bold text-purple-600">
-                    Rp {{ formatShortRupiah(walletInvestment) }}
+                <p class="text-xl md:text-3xl font-bold text-purple-600">
+                    Rp {{ Math.abs(walletInvestment).toLocaleString('id-ID') }}
                 </p>
 
                 <div class="absolute -bottom-6 -right-6 w-20 h-20 bg-purple-200 rounded-full"></div>
@@ -274,8 +282,8 @@ function formatShortRupiah(value) {
                 </div>
 
                 <p class="text-lg text-gray-500">Self Rewrd</p>
-                <p class="text-3xl font-bold text-yellow-600">
-                    Rp {{ formatShortRupiah(totalSelfReward) }}
+                <p class="text-xl md:text-3xl font-bold text-yellow-600">
+                    Rp {{ Math.abs(totalSelfReward).toLocaleString('id-ID') }}
                 </p>
 
                 <div class="absolute -bottom-6 -right-6 w-20 h-20 bg-yellow-200 rounded-full"></div>
@@ -291,11 +299,11 @@ function formatShortRupiah(value) {
                 </div>
 
                 <p class="text-lg text-gray-500">Cash</p>
-                <p class="text-3xl font-bold text-blue-600">
-                    Rp {{ formatShortRupiah(walletCash) }}
+                <p class="text-xl md:text-3xl font-bold text-blue-600">
+                    Rp {{ Math.abs(walletCash).toLocaleString('id-ID') }}
                 </p>
 
-                <div class="absolute -bottom-6 -right-6 w-20 h-20 bg-blue-200 rounded-full"></div>
+                <div class="absolute -bottom-6 -right-6 w-20 h-20 bg-blue-200 z-0 rounded-full"></div>
             </div>
         </div>
 
@@ -306,7 +314,6 @@ function formatShortRupiah(value) {
             <Action icon="ArrowUpRight" label="Transfer" />
             <Action icon="Settings" label="Lainnya" />
         </div>
-
         <!-- Transactions -->
         <div class="flex justify-between items-center mb-4">
             <h2 class="font-bold text-lg">Transaksi Terakhir</h2>
@@ -315,8 +322,17 @@ function formatShortRupiah(value) {
 
         <div class="space-y-3">
             <!-- skeleton -->
-            <div v-if="loading" class="animate-pulse relative overflow-hidden rounded-2xl h-[130px] bg-slate-300 p-10">
+            <div v-if="loading" class="animate-pulse relative overflow-hidden rounded-2xl h-[60px] bg-slate-300 p-10">
             </div>
+            <div v-if="loading" class="animate-pulse relative overflow-hidden rounded-2xl h-[60px] bg-slate-300 p-10">
+            </div>
+            <div v-if="loading" class="animate-pulse relative overflow-hidden rounded-2xl h-[60px] bg-slate-300 p-10">
+            </div>
+            <div v-if="loading" class="animate-pulse relative overflow-hidden rounded-2xl h-[60px] bg-slate-300 p-10">
+            </div>
+            <!-- end skeleton -->
+
+            <!-- infromation transaction -->
             <div v-else v-for="transaction in transactions" :key="transaction.id"
                 class="bg-white rounded-2xl p-4 flex justify-between items-center">
                 <!--  -->
@@ -343,6 +359,7 @@ function formatShortRupiah(value) {
                     <p class="text-xs text-gray-400">{{ formatDate(transaction.date) }}</p>
                 </div>
             </div>
+            <!-- end transaction -->
         </div>
 
 
@@ -392,16 +409,22 @@ function formatShortRupiah(value) {
                         </button>
                     </Link>
 
-
-                    <button
-                        class="w-full flex items-center gap-4 hover:scale-110 hover:bg-gradient-to-br hover:from-yellow-600 hover:to-white hover:text-white transition-all bg-white shadow rounded-2xl p-4">
-                        <div
-                            class="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-300 to-yellow-600 bg-purple-500 flex items-center justify-center text-white">
-                            <RedoDot />
-                        </div>
-                        <span class="font-semibold text-lg">Self Reward</span>
-                        <ChevronRight class="ml-[85px] text-yellow-700" />
-                    </button>
+                    <Link @click="startLoadingSelfReward()" :href="route('self.reward.create')">
+                        <button v-if="moveLoadingSelfReward"
+                            class="w-full flex items-center gap-4 hover:scale-110 hover:bg-gradient-to-br mt-4 hover:from-yellow-600 hover:to-white hover:text-white transition-all bg-white shadow rounded-2xl p-4">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-300 to-yellow-600 bg-purple-500 flex items-center justify-center text-white">
+                                <RedoDot />
+                            </div>
+                            <span class="font-semibold text-lg">Self Reward</span>
+                            <ChevronRight class="ml-[85px] text-yellow-700" />
+                            <!-- loading -->
+                        </button>
+                        <button v-else
+                            class="w-full flex items-center gap-4 mt-4 hover:scale-110 hover:bg-gradient-to-br hover:from-green-700 hover:to-white transition-all hover:text-white bg-white shadow rounded-2xl h-[70px] p-4">
+                            <span class="font-semibold text-lg transition-all">Loading...</span>
+                        </button>
+                    </Link>
 
 
                     <button

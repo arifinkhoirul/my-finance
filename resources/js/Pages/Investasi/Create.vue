@@ -1,5 +1,5 @@
 <script setup>
-import { ArrowLeft, TrendingUp, Calendar, FileText, Tag, DollarSign } from "lucide-vue-next";
+import { ArrowLeft, TrendingUp, Calendar, FileText, Tag, DollarSign, ChartCandlestick } from "lucide-vue-next";
 import Datepicker from "vue3-datepicker"
 import { ref } from "vue";
 import { useForm } from "@inertiajs/vue3";
@@ -8,12 +8,13 @@ import { useForm } from "@inertiajs/vue3";
 
 // const date = ref(null);
 
+
 const categories = [
-    { id: 1, label: "Gaji", icon: "💼" },
-    { id: 6, label: "Freelance", icon: "💻" },
-    { id: 7, label: "Hasil Investasi", icon: "📈" },
-    { id: 8, label: "Hadiah", icon: "🎁" },
-    { id: 9, label: "Bonus", icon: "🏆" },
+    { id: 4, label: "Saham", icon: "📊" },
+    { id: 11, label: "Crypto", icon: "₿" },
+    { id: 12, label: "Reksadana", icon: "📈" },
+    { id: 13, label: "Emas", icon: "🪙" },
+    { id: 14, label: "Properti", icon: "🏠" },
     { id: 10, label: "Lainnya", icon: "📦" },
 ];
 
@@ -22,14 +23,14 @@ const form = useForm({
     category_id: null,
     date: null,
     description: null,
-    wallet_id: 1,
+    wallet_id: 3,
     user_id: 1,
-    type: 'income',
+    type: 'investment',
 
 })
 
 function submit() {
-    form.post(route('pemasukan.store'))
+    form.post(route('investasi.store'))
 }
 
 </script>
@@ -48,11 +49,11 @@ function submit() {
                     <div class="flex items-center gap-3">
                         <div
                             class="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 shadow-md">
-                            <TrendingUp class="h-5 w-5 text-white" />
+                            <ChartCandlestick class="h-5 w-5 text-white" />
                         </div>
                         <div>
                             <h1 class="text-lg font-bold text-foreground">Tambah Investasi</h1>
-                            <p class="text-xs text-slate-500">Catat pendapatan Anda</p>
+                            <p class="text-xs text-slate-500">Catat investasi Anda</p>
                         </div>
                     </div>
                 </div>
