@@ -6,6 +6,8 @@ use App\Models\Transaction;
 use App\Models\Wallet;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
@@ -26,8 +28,9 @@ class DashboardController extends Controller
         $walletCash = $totalIncome - $walletInvestment - $totalExpenses - $totalSelfReward;
         $saldoUtama = $totalIncome  - $totalSelfReward - $totalExpenses;
         // $ = Transaction::latest()->get();
-        // dd($transactions);
+        $user =  Auth::user();
+        // dd($user);
 
-        return Inertia::render('Financial', ['transactions' => $transactions, 'wallets' => $wallets, 'walletInvestment' => $walletInvestment, 'walletExpenses' => $walletExpenses, 'walletCash' => $walletCash, 'totalIncome' => $totalIncome, 'totalSelfReward' => $totalSelfReward, 'walletIncome' => $walletIncome, 'saldoUtama' => $saldoUtama]);
+        return Inertia::render('Financial', ['user' => $user,'transactions' => $transactions, 'wallets' => $wallets, 'walletInvestment' => $walletInvestment, 'walletExpenses' => $walletExpenses, 'walletCash' => $walletCash, 'totalIncome' => $totalIncome, 'totalSelfReward' => $totalSelfReward, 'walletIncome' => $walletIncome, 'saldoUtama' => $saldoUtama]);
     }
 }

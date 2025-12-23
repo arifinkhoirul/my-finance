@@ -113,4 +113,39 @@ class InputDataController extends Controller
 
         return redirect()->route('financial.dashboard')->with(['message' => 'Kamu berhasil menambahkan self reward']);
     }
+
+
+    public function createPengeluaran()
+    {
+        return Inertia::render('Pengeluaran/Create');
+    }
+
+    public function storePengeluaran(Request $request)
+    {
+        $validated = $request->validate([
+            'user_id' => 'required',
+            'wallet_id' => 'required',
+            'category_id' => 'required',
+            // 'type' => 'required',
+            'amount' => 'required',
+            'description' => 'required',
+            'date' => 'required',
+        ], [
+            'user_id.requried' => 'masukkan data dengan benar',
+            'wallet_id.requried' => 'masukkan data dengan benar',
+            'category_id.requried' => 'masukkan data dengan benar',
+            // 'type.requried' => 'masukkan data dengan benar',
+            'amount.requried' => 'masukkan data dengan benar',
+            'description.requried' => 'masukkan data dengan benar',
+            'date.requried' => 'masukkan data dengan benar',
+        ]);
+
+        $validated['date'] = Carbon::parse($validated['date'],'UTC'
+        )->setTimezone('Asia/Jakarta')->toDateString();
+
+        Transaction::create($validated);
+
+        return redirect()->route('financial.dashboard')->with(['message' => 'Kamu berhasil menambahkan pengeluaran']);
+
+    }
 }

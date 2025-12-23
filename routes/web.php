@@ -36,7 +36,7 @@ Route::get('/self-reward', [InputDataController::class, 'createSelfReward'])->na
 Route::post('/self-reward/store', [InputDataController::class, 'storeSelfReward'])->name('self.reward.store');
 
 Route::get('/pengeluaran', [InputDataController::class, 'createPengeluaran'])->name('pengeluaran.create');
-Route::get('/pengeluaran-store', [InputDataController::class, 'storePengeluaran'])->name('pengeluaran.store');
+Route::post('/pengeluaran-store', [InputDataController::class, 'storePengeluaran'])->name('pengeluaran.store');
 
 
 

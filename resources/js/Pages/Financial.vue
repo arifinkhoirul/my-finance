@@ -40,6 +40,7 @@ defineProps({
     totalSelfReward: Object,
     walletIncome: Object,
     saldoUtama: Object,
+    user: Object,
 
 })
 
@@ -78,6 +79,16 @@ const startLoadingSelfReward = () => {
     moveLoadingSelfReward.value = false
 }
 // ----------------------------------
+
+
+// ----------------------------------
+const moveLoadingPengeluaran = ref(true)
+
+const startLoadingPengeluaran = () => {
+    moveLoadingPengeluaran.value = false
+}
+// ----------------------------------
+
 
 
 // ---------------------------------
@@ -197,8 +208,11 @@ function formatShortRupiah(value) {
                     😀
                 </div>
                 <div>
-                    <p class="text-sm text-gray-500">Selamat datang 👋</p>
-                    <h1 class="font-bold">Ahmad Fauzi</h1>
+                    <p class="text-sm text-gray-500">Selamat datang <span class="text-lg text-black font-bold">{{
+                        user.name
+                    }}</span> 👋
+                    </p>
+                    <h1 class=" text-slate-500">{{ user.email }}</h1>
                 </div>
             </div>
 
@@ -337,11 +351,11 @@ function formatShortRupiah(value) {
                 class="bg-white rounded-2xl p-4 flex justify-between items-center">
                 <!--  -->
                 <div class="flex items-center gap-3">
-                    <div :class="transaction.category.name == 'transportasi' ? 'bg-red-200' : transaction.category.name == 'makanan' ? 'bg-red-200' : transaction.category.name == 'hiburan' ? 'bg-red-200' : transaction.category.name == 'belanja' ? 'bg-red-200' : transaction.category.name == 'gaji' ? 'bg-green-200' : transaction.category.name == 'self reward' ? 'bg-yellow-200' : transaction.category.name == 'freelance' ? 'bg-green-200' : 'bg-purple-200'"
+                    <div :class="transaction.category.name == 'makanan' ? 'bg-red-200' : transaction.category.name == 'transportasi' ? 'bg-red-200' : transaction.category.name == 'tagihan' ? 'bg-red-200' : transaction.category.name == 'kesehatan' ? 'bg-red-200' : transaction.category.name == 'pendidikan' ? 'bg-red-200' : transaction.category.name == 'lainnya_pengeluaran' ? 'bg-red-200' : transaction.category.name == 'gaji' ? 'bg-green-200' : transaction.category.name == 'freelance' ? 'bg-green-200' : transaction.category.name == 'hasil investasi' ? 'bg-green-200' : transaction.category.name == 'hadiah' ? 'bg-green-200' : transaction.category.name == 'bonus' ? 'bg-green-200' : transaction.category.name == 'lainnya pemasukan' ? 'bg-green-200' : transaction.category.name == 'saham' ? 'bg-purple-200' : transaction.category.name == 'crypto' ? 'bg-purple-200' : transaction.category.name == 'reksadana' ? 'bg-purple-200' : transaction.category.name == 'emas' ? 'bg-purple-200' : transaction.category.name == 'properti' ? 'bg-purple-200' : transaction.category.name == 'lainnya investasi' ? 'bg-purple-200' : transaction.category.name == 'belanja' ? 'bg-yellow-200' : transaction.category.name == 'liburan' ? 'bg-yellow-200' : transaction.category.name == 'kuliner' ? 'bg-yellow-200' : transaction.category.name == 'hiburan' ? 'bg-yellow-200' : transaction.category.name == 'hobi' ? 'bg-yellow-200' : transaction.category.name == 'lainnya self reward' ? 'bg-yellow-200' : 'bg-yellow-200'"
                         class="w-10 h-10 rounded-xl  flex items-center justify-center">
                         <component
-                            :class="transaction.category.name == 'transportasi' ? 'text-blue-700' : transaction.category.name == 'makanan' ? 'text-yellow-700' : transaction.category.name == 'hiburan' ? 'text-red-700' : transaction.category.name == 'belanja' ? 'text-red-700' : transaction.category.name == 'gaji' ? 'text-green-700' : transaction.category.name == 'self reward' ? 'text-yellow-700' : transaction.category.name == 'freelance' ? 'text-green-700' : 'text-purple-700'"
-                            :is="transaction.category.name == 'transportasi' ? BanknoteArrowUp : transaction.category.name == 'makanan' ? BanknoteArrowUp : transaction.category.name == 'hiburan' ? BanknoteArrowUp : transaction.category.name == 'belanja' ? BanknoteArrowUp : transaction.category.name == 'gaji' ? BanknoteArrowDown : transaction.category.name == 'self reward' ? RedoDot : transaction.category.name == 'saham' ? ChartCandlestick : BanknoteArrowDown" />
+                            :class="transaction.category.name == 'makanan' ? 'text-red-700' : transaction.category.name == 'transportasi' ? 'text-red-700' : transaction.category.name == 'tagihan' ? 'text-red-700' : transaction.category.name == 'kesehatan' ? 'text-red-700' : transaction.category.name == 'pendidikan' ? 'text-red-700' : transaction.category.name == 'lainnya_pengeluaran' ? 'text-red-700' : transaction.category.name == 'gaji' ? 'text-green-700' : transaction.category.name == 'freelance' ? 'text-green-700' : transaction.category.name == 'hasil investasi' ? 'text-green-700' : transaction.category.name == 'hadiah' ? 'text-green-700' : transaction.category.name == 'bonus' ? 'text-green-700' : transaction.category.name == 'lainnya pemasukan' ? 'text-green-700' : transaction.category.name == 'saham' ? 'text-purple-600' : transaction.category.name == 'crypto' ? 'text-purple-600' : transaction.category.name == 'reksadana' ? 'text-purple-600' : transaction.category.name == 'emas' ? 'text-purple-600' : transaction.category.name == 'properti' ? 'text-purple-600' : transaction.category.name == 'lainnya investasi' ? 'text-purple-600' : transaction.category.name == 'belanja' ? 'text-yellow-700' : transaction.category.name == 'liburan' ? 'text-yellow-700' : transaction.category.name == 'kuliner' ? 'text-yellow-700' : transaction.category.name == 'hiburan' ? 'text-yellow-700' : transaction.category.name == 'hobi' ? 'text-yellow-700' : transaction.category.name == 'lainnya self reward' ? 'text-yellow-700' : 'text-yellow-700'"
+                            :is="transaction.category.name == 'makanan' ? BanknoteArrowUp : transaction.category.name == 'transportasi' ? BanknoteArrowUp : transaction.category.name == 'tagihan' ? BanknoteArrowUp : transaction.category.name == 'kesehatan' ? BanknoteArrowUp : transaction.category.name == 'pendidikan' ? BanknoteArrowUp : transaction.category.name == 'lainnya_pengeluaran' ? BanknoteArrowUp : transaction.category.name == 'gaji' ? BanknoteArrowDown : transaction.category.name == 'freelance' ? BanknoteArrowDown : transaction.category.name == 'hasil investasi' ? BanknoteArrowDown : transaction.category.name == 'hadiah' ? BanknoteArrowDown : transaction.category.name == 'bonus' ? BanknoteArrowDown : transaction.category.name == 'lainnya pemasukan' ? BanknoteArrowDown : transaction.category.name == 'saham' ? ChartCandlestick : transaction.category.name == 'crypto' ? ChartCandlestick : transaction.category.name == 'reksadana' ? ChartCandlestick : transaction.category.name == 'emas' ? ChartCandlestick : transaction.category.name == 'properti' ? ChartCandlestick : transaction.category.name == 'lainnya investasi' ? ChartCandlestick : transaction.category.name == 'belanja' ? RedoDot : transaction.category.name == 'liburan' ? RedoDot : transaction.category.name == 'kuliner' ? RedoDot : transaction.category.name == 'hiburan' ? RedoDot : transaction.category.name == 'hobi' ? RedoDot : transaction.category.name == 'lainnya self reward' ? RedoDot : RedoDot" />
                     </div>
                     <div>
                         <p class="font-medium">{{ transaction.wallet.name }}</p>
@@ -426,17 +440,21 @@ function formatShortRupiah(value) {
                         </button>
                     </Link>
 
-
-                    <button
-                        class="w-full flex items-center gap-4 hover:scale-110 bg-white hover:bg-gradient-to-br hover:from-red-700 hover:to-white hover:text-white transition-all shadow rounded-2xl p-4">
-                        <div
-                            class="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-500 to-red-600 flex items-center justify-center text-white">
-                            <TrendingDown />
-                        </div>
-                        <span class="font-semibold text-lg">Pengeluaran</span>
-                        <ChevronRight class="ml-[83px] text-red-700" />
-
-                    </button>
+                    <Link @click="startLoadingPengeluaran()" :href="route('pengeluaran.create')">
+                        <button v-if="moveLoadingPengeluaran"
+                            class="w-full flex items-center gap-4 hover:scale-110 mt-4 bg-white hover:bg-gradient-to-br hover:from-red-700 hover:to-white hover:text-white transition-all shadow rounded-2xl p-4">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-500 to-red-600 flex items-center justify-center text-white">
+                                <TrendingDown />
+                            </div>
+                            <span class="font-semibold text-lg">Pengeluaran</span>
+                            <ChevronRight class="ml-[83px] text-red-700" />
+                        </button>
+                        <button v-else
+                            class="w-full flex items-center gap-4 mt-4 hover:scale-110 hover:bg-gradient-to-br hover:from-green-700 hover:to-white transition-all hover:text-white bg-white shadow rounded-2xl h-[70px] p-4">
+                            <span class="font-semibold text-lg transition-all">Loading...</span>
+                        </button>
+                    </Link>
 
                     <!-- Cancel -->
                     <button @click="closeAddMenu"
