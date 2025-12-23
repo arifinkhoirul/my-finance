@@ -63,6 +63,12 @@ const startLoading = () => {
     moveLoading.value = false
 }
 
+const moveLoadingInvestasi = ref(true)
+
+const startLoadingInvestasi = () => {
+    moveLoadingInvestasi.value = false
+}
+
 // ----------------------------------
 
 
@@ -366,19 +372,26 @@ function formatShortRupiah(value) {
                             class="w-full flex items-center gap-4 hover:scale-110 hover:bg-gradient-to-br hover:from-green-700 hover:to-white transition-all hover:text-white bg-white shadow rounded-2xl h-[70px] p-4">
                             <span class="font-semibold text-lg transition-all">Loading...</span>
                         </button>
-
                     </Link>
 
-                    <button
-                        class="w-full flex items-center gap-4 hover:scale-110 hover:bg-gradient-to-br hover:from-purple-700 hover:to-white hover:text-white transition-all bg-white shadow rounded-2xl p-4">
-                        <div
-                            class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-600 to-pink-300 flex items-center justify-center text-white">
-                            <ChartCandlestick />
-                        </div>
-                        <span class="font-semibold text-lg">Investasi</span>
-                        <ChevronRight class="ml-[110px] text-purple-700" />
 
-                    </button>
+                    <Link @click="startLoadingInvestasi()" :href="route('investasi.create')">
+                        <button v-if="moveLoadingInvestasi"
+                            class="w-full flex items-center gap-4 hover:scale-110 mt-4 hover:bg-gradient-to-br hover:from-purple-700 hover:to-white hover:text-white transition-all bg-white shadow rounded-2xl p-4">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-600 to-pink-300 flex items-center justify-center text-white">
+                                <ChartCandlestick />
+                            </div>
+                            <span class="font-semibold text-lg">Investasi</span>
+                            <ChevronRight class="ml-[110px] text-purple-700" />
+                        </button>
+                        <!-- loading -->
+                        <button v-else
+                            class="w-full flex items-center gap-4 mt-4 hover:scale-110 hover:bg-gradient-to-br hover:from-green-700 hover:to-white transition-all hover:text-white bg-white shadow rounded-2xl h-[70px] p-4">
+                            <span class="font-semibold text-lg transition-all">Loading...</span>
+                        </button>
+                    </Link>
+
 
                     <button
                         class="w-full flex items-center gap-4 hover:scale-110 hover:bg-gradient-to-br hover:from-yellow-600 hover:to-white hover:text-white transition-all bg-white shadow rounded-2xl p-4">
@@ -388,8 +401,8 @@ function formatShortRupiah(value) {
                         </div>
                         <span class="font-semibold text-lg">Self Reward</span>
                         <ChevronRight class="ml-[85px] text-yellow-700" />
-
                     </button>
+
 
                     <button
                         class="w-full flex items-center gap-4 hover:scale-110 bg-white hover:bg-gradient-to-br hover:from-red-700 hover:to-white hover:text-white transition-all shadow rounded-2xl p-4">

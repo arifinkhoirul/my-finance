@@ -29,6 +29,9 @@ Route::post('/pemasukan-store', [InputDataController::class, 'storePemasukan'])-
 
 
 Route::get('/investasi', [InputDataController::class, 'createInvestasi'])->name('investasi.create');
+Route::post('/investasi-store', [InputDataController::class, 'storeInvestasi'])->name('investasi.store');
+
+
 Route::get('/self-reward', [InputDataController::class, 'createSelfReward'])->name('self.reward.create');
 Route::get('/pengeluaran', [InputDataController::class, 'createPengeluaran'])->name('pengeluaran.create');
 

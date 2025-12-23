@@ -47,4 +47,9 @@ class InputDataController extends Controller
 
         return redirect()->route('financial.dashboard')->with(['message' => 'Kamu berhasil menambahkan pemasukan']);
     }
+
+    public function createInvestasi()
+    {
+        return Inertia::render('Investasi/Create');
+    }
 }
