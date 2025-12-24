@@ -23,7 +23,8 @@ import {
     ChevronRight,
     BadgeCheck,
     X,
-    CircleCheck
+    CircleCheck,
+    LogOut
 } from 'lucide-vue-next'
 import { defineProps, ref, watch, onMounted } from 'vue';
 import { usePage, Link } from '@inertiajs/vue3';
@@ -41,7 +42,6 @@ defineProps({
     walletIncome: Object,
     saldoUtama: Object,
     user: Object,
-
 })
 
 // ----------------------------------
@@ -185,7 +185,7 @@ function formatShortRupiah(value) {
         enter-to-class="opacity-100 translate-y-0" leave-active-class="transition ease-in duration-300"
         leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 translate-y-4">
         <div v-if="showFlash"
-            class="fixed top-5 left-5 right-5 z-50 flex items-center gap-3 rounded-xl bg-white px-5 py-2 text-black shadow-xl shadow-emerald-700/30">
+            class="fixed top-32 left-5 right-5 z-50 flex items-center gap-3 rounded-2xl bg-white px-5 py-2 text-black shadow-xl shadow-emerald-700/30">
             <CircleCheck class="text-green-500 h-8 w-10" />
 
             <p class="text-md">
@@ -200,28 +200,41 @@ function formatShortRupiah(value) {
     </Transition>
 
     <div class="min-h-screen bg-[#f6f7ff] p-4 pb-28">
+        <!-- skeleton -->
+        <div v-if="loading" class="animate-pulse relative overflow-hidden rounded-2xl h-[50px] mb-3 bg-slate-300 p-10">
+        </div>
 
-        <!-- Header -->
-        <div class="flex items-center justify-between mb-6">
-            <div class="flex items-center gap-3">
-                <div class="w-12 h-12 rounded-full bg-yellow-300 flex items-center justify-center">
-                    😀
-                </div>
-                <div>
-                    <p class="text-sm text-gray-500">Selamat datang <span class="text-lg text-black font-bold">{{
-                        user.name
-                    }}</span> 👋
-                    </p>
-                    <h1 class=" text-slate-500">{{ user.email }}</h1>
-                </div>
-            </div>
+        <div v-else class="sticky top-0 z-50 mb-6
+           bg-white/70 backdrop-blur-2xl
+           border-b border-white/10
+           shadow-sm">
 
-            <div class="flex gap-3">
-                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow">
-                    🔍
+            <!-- Header -->
+            <div class="flex items-center justify-between px-4 py-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-full bg-yellow-300 flex items-center justify-center">
+                        😀
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500">
+                            Selamat datang
+                            <span class="text-lg text-black font-bold">
+                                {{ user.name }}
+                            </span> 👋
+                        </p>
+                        <h1 class="text-slate-500">
+                            {{ user.email }}
+                        </h1>
+                    </div>
                 </div>
-                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow">
-                    🔔
+
+                <div class="flex gap-3">
+                    <div class="w-10 h-10 bg-white/80 rounded-full flex items-center justify-center shadow">
+                        🔔
+                    </div>
+                    <div class="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center shadow">
+                        <LogOut class=" text-white" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -277,10 +290,13 @@ function formatShortRupiah(value) {
                     <TrendingUp :size="18" />
                 </div>
 
-                <p class="text-lg text-gray-500">Investasi</p>
+                <p class="text-lg text-gra  y-500">Investasi</p>
                 <p class="text-xl md:text-3xl font-bold text-purple-600">
                     Rp {{ Math.abs(walletInvestment).toLocaleString('id-ID') }}
                 </p>
+                <Link>
+                    <p class="text-sm text-purple-700 font-bold">Lihat transaksi</p>
+                </Link>
 
                 <div class="absolute -bottom-6 -right-6 w-20 h-20 bg-purple-200 rounded-full"></div>
                 <!-- Decorative shape -->
@@ -299,6 +315,9 @@ function formatShortRupiah(value) {
                 <p class="text-xl md:text-3xl font-bold text-yellow-600">
                     Rp {{ Math.abs(totalSelfReward).toLocaleString('id-ID') }}
                 </p>
+                <Link>
+                    <p class="text-sm text-yellow-600 font-bold">Lihat transaksi</p>
+                </Link>
 
                 <div class="absolute -bottom-6 -right-6 w-20 h-20 bg-yellow-200 rounded-full"></div>
             </div>
@@ -308,7 +327,7 @@ function formatShortRupiah(value) {
             </div>
             <!-- Cash -->
             <div v-else class="relative overflow-hidden rounded-2xl bg-blue-100 p-10">
-                <div class="absolute top-4 right-4 bg-blue-500 text-white p-2 rounded-full">
+                <div class="absolute top-4 right-4 bg-blue-700 text-white p-2 rounded-full">
                     <Wallet :size="18" />
                 </div>
 
@@ -328,8 +347,17 @@ function formatShortRupiah(value) {
             <Action icon="ArrowUpRight" label="Transfer" />
             <Action icon="Settings" label="Lainnya" />
         </div>
+
+        <!-- content loding -->
+        <div v-if="loading" class="grid grid-cols-2 mb-4">
+            <div class="animate-pulse relative overflow-hidden rounded-2xl w-[150px] h-[8px] bg-slate-300 p-3">
+            </div>
+            <div
+                class="animate-pulse ml-[90px] relative overflow-hidden rounded-2xl w-[100px] h-[8px] bg-slate-300 p-3">
+            </div>
+        </div>
         <!-- Transactions -->
-        <div class="flex justify-between items-center mb-4">
+        <div v-else class="flex justify-between items-center mb-4">
             <h2 class="font-bold text-lg">Transaksi Terakhir</h2>
             <a class="text-purple-600 text-sm font-bold">Lihat Semua</a>
         </div>
@@ -470,18 +498,28 @@ function formatShortRupiah(value) {
         <!-- Bottom Nav -->
         <!-- Floating Bottom Nav -->
         <div class="fixed bottom-4 left-0 right-0 z-40 flex justify-center">
-            <div class="bg-white rounded-full shadow-xl px-6 md:px-16 py-5 flex items-center gap-8 w-[85%] max-w-md">
-                <!-- Home -->
-                <div class="flex flex-col items-center text-purple-600">
-                    <Home />
-                    <!-- <span class="text-xs mt-1">Beranda</span> -->
-                </div>
+            <!-- conten loader -->
+            <div v-if="loading"
+                class="animate-pulse relative overflow-hidden rounded-2xl w- h-[50px] mb-3 bg-slate-300/0 p-10">
+            </div>
 
-                <!-- Statistik -->
-                <div class="flex flex-col items-center text-gray-400">
-                    <BarChart2 />
-                    <!-- <span class="text-xs mt-1">Statistik</span> -->
-                </div>
+            <div v-else
+                class="bg-white rounded-full shadow-xl px-6 md:px-16 py-5 flex items-center gap-8 w-[85%] max-w-md">
+                <!-- Home -->
+                <Link :href="route('financial.dashboard')">
+                    <div class="flex flex-col items-center text-purple-600">
+                        <Home />
+                        <!-- <span class="text-xs mt-1">Beranda</span> -->
+                    </div>
+                </Link>
+
+                <Link :href="route('statistik.index')">
+                    <!-- Statistik -->
+                    <div class="flex flex-col items-center text-gray-400">
+                        <BarChart2 />
+                        <!-- <span class="text-xs mt-1">Statistik</span> -->
+                    </div>
+                </Link>
 
                 <!-- Plus Button -->
                 <div @click="openAddMenu()"

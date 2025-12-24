@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InputDataController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StatistikController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -21,22 +22,30 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-Route::get('/financial-dashboard', [DashboardController::class, 'index'])->name('financial.dashboard')->middleware(['auth','verified']);
+
+Route::middleware(['auth', 'verified'])->group(function() {
+    Route::get('/financial-dashboard', [DashboardController::class, 'index'])->name('financial.dashboard');
 
 
-Route::get('/pemasukan', [InputDataController::class, 'createPemasukan'])->name('pemasukan.create');
-Route::post('/pemasukan-store', [InputDataController::class, 'storePemasukan'])->name('pemasukan.store');
+    Route::get('/pemasukan', [InputDataController::class, 'createPemasukan'])->name('pemasukan.create');
+    Route::post('/pemasukan-store', [InputDataController::class, 'storePemasukan'])->name('pemasukan.store');
 
 
-Route::get('/investasi', [InputDataController::class, 'createInvestasi'])->name('investasi.create');
-Route::post('/investasi-store', [InputDataController::class, 'storeInvestasi'])->name('investasi.store');
+    Route::get('/investasi', [InputDataController::class, 'createInvestasi'])->name('investasi.create');
+    Route::post('/investasi-store', [InputDataController::class, 'storeInvestasi'])->name('investasi.store');
 
 
-Route::get('/self-reward', [InputDataController::class, 'createSelfReward'])->name('self.reward.create');
-Route::post('/self-reward/store', [InputDataController::class, 'storeSelfReward'])->name('self.reward.store');
+    Route::get('/self-reward', [InputDataController::class, 'createSelfReward'])->name('self.reward.create');
+    Route::post('/self-reward/store', [InputDataController::class, 'storeSelfReward'])->name('self.reward.store');
 
-Route::get('/pengeluaran', [InputDataController::class, 'createPengeluaran'])->name('pengeluaran.create');
-Route::post('/pengeluaran-store', [InputDataController::class, 'storePengeluaran'])->name('pengeluaran.store');
+
+    Route::get('/pengeluaran', [InputDataController::class, 'createPengeluaran'])->name('pengeluaran.create');
+    Route::post('/pengeluaran-store', [InputDataController::class, 'storePengeluaran'])->name('pengeluaran.store');
+
+
+    Route::get('/statistik', [StatistikController::class, 'indexStatistik'])->name('statistik.index');
+});
+
 
 
 

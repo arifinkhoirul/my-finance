@@ -25,7 +25,6 @@ const form = useForm({
     wallet_id: 1,
     user_id: 1,
     type: 'income',
-
 })
 
 function submit() {

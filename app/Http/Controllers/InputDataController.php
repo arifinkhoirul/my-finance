@@ -24,18 +24,18 @@ class InputDataController extends Controller
             'user_id' => 'required',
             'wallet_id' => 'required',
             'category_id' => 'required',
-            // 'type' => 'required',
+            'type' => 'required',
             'amount' => 'required',
-            'description' => 'required',
             'date' => 'required',
+            'description' => 'required',
         ], [
             'user_id.requried' => 'masukkan data dengan benar',
             'wallet_id.requried' => 'masukkan data dengan benar',
             'category_id.requried' => 'masukkan data dengan benar',
-            // 'type.requried' => 'masukkan data dengan benar',
+            'type.requried' => 'masukkan data dengan benar',
             'amount.requried' => 'masukkan data dengan benar',
-            'description.requried' => 'masukkan data dengan benar',
             'date.requried' => 'masukkan data dengan benar',
+            'description.requried' => 'masukkan data dengan benar',
         ]);
 
 
@@ -58,18 +58,18 @@ class InputDataController extends Controller
             'user_id' => 'required',
             'wallet_id' => 'required',
             'category_id' => 'required',
-            // 'type' => 'required',
+            'type' => 'required',
             'amount' => 'required',
-            'description' => 'required',
             'date' => 'required',
+            'description' => 'required',
         ], [
             'user_id.requried' => 'masukkan data dengan benar',
             'wallet_id.requried' => 'masukkan data dengan benar',
             'category_id.requried' => 'masukkan data dengan benar',
-            // 'type.requried' => 'masukkan data dengan benar',
+            'type.requried' => 'masukkan data dengan benar',
             'amount.requried' => 'masukkan data dengan benar',
-            'description.requried' => 'masukkan data dengan benar',
             'date.requried' => 'masukkan data dengan benar',
+            'description.requried' => 'masukkan data dengan benar',
         ]);
 
         $validated['date'] = Carbon::parse($validated['date'],'UTC'
@@ -92,18 +92,18 @@ class InputDataController extends Controller
             'user_id' => 'required',
             'wallet_id' => 'required',
             'category_id' => 'required',
-            // 'type' => 'required',
+            'type' => 'required',
             'amount' => 'required',
-            'description' => 'required',
             'date' => 'required',
+            'description' => 'required',
         ], [
             'user_id.requried' => 'masukkan data dengan benar',
             'wallet_id.requried' => 'masukkan data dengan benar',
             'category_id.requried' => 'masukkan data dengan benar',
-            // 'type.requried' => 'masukkan data dengan benar',
+            'type.requried' => 'masukkan data dengan benar',
             'amount.requried' => 'masukkan data dengan benar',
-            'description.requried' => 'masukkan data dengan benar',
             'date.requried' => 'masukkan data dengan benar',
+            'description.requried' => 'masukkan data dengan benar',
         ]);
 
         $validated['date'] = Carbon::parse($validated['date'],'UTC'
@@ -126,18 +126,18 @@ class InputDataController extends Controller
             'user_id' => 'required',
             'wallet_id' => 'required',
             'category_id' => 'required',
-            // 'type' => 'required',
+            'type' => 'required',
             'amount' => 'required',
-            'description' => 'required',
             'date' => 'required',
+            'description' => 'required',
         ], [
             'user_id.requried' => 'masukkan data dengan benar',
             'wallet_id.requried' => 'masukkan data dengan benar',
             'category_id.requried' => 'masukkan data dengan benar',
-            // 'type.requried' => 'masukkan data dengan benar',
+            'type.requried' => 'masukkan data dengan benar',
             'amount.requried' => 'masukkan data dengan benar',
-            'description.requried' => 'masukkan data dengan benar',
             'date.requried' => 'masukkan data dengan benar',
+            'description.requried' => 'masukkan data dengan benar',
         ]);
 
         $validated['date'] = Carbon::parse($validated['date'],'UTC'
