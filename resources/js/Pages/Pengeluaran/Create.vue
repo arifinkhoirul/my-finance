@@ -15,7 +15,7 @@ const categories = [
     { id: 22, label: "Tagihan", icon: "📄" },
     { id: 23, label: "Kesehatan", icon: "💊" },
     { id: 24, label: "Pendidikan", icon: "📚" },
-    { id: 10, label: "Lainnya", icon: "📦" },
+    { id: 25, label: "Lainnya", icon: "📦" },
 ];
 
 
