@@ -46,49 +46,49 @@ const props = defineProps({
     saldoTrendMonthSecond: Number,
     saldoTrendMonthNow: Number,
 
-    totalInvestment: Number,
+    totalInvestment: String,
     totalCash: Number,
 
-    expensesDataLastMothFourth: Number,
-    expensesDataLastMothThird: Number,
-    expensesDataLastMothSecond: Number,
-    expensesDataLastMothNow: Number,
+    expensesDataLastMothFourth: String,
+    expensesDataLastMothThird: String,
+    expensesDataLastMothSecond: String,
+    expensesDataLastMothNow: String,
 
-    selfRewardDataLastMothFourth: Number,
-    selfRewardDataLastMothThird: Number,
-    selfRewardDataLastMothSecond: Number,
-    selfRewardDataLastMothNow: Number,
+    selfRewardDataLastMothFourth: String,
+    selfRewardDataLastMothThird: String,
+    selfRewardDataLastMothSecond: String,
+    selfRewardDataLastMothNow: String,
 
     totalSaldo: Number,
-    totalExpenses: Number,
+    totalExpenses: String,
 
-    expensesFoodMonthFourth: Number,
-    expensesTransportationMonthFourth: Number,
-    expensesTagihanMonthFourth: Number,
-    expensesHealthMonthFourth: Number,
-    expensesEducationMonthFourth: Number,
-    expensesOtherMonthFourth: Number,
+    expensesFoodMonthFourth: String,
+    expensesTransportationMonthFourth: String,
+    expensesTagihanMonthFourth: String,
+    expensesHealthMonthFourth: String,
+    expensesEducationMonthFourth: String,
+    expensesOtherMonthFourth: String,
 
-    expensesFoodMontThird: Number,
-    expensesTransportationMontThird: Number,
-    expensesTagihanMontThird: Number,
-    expensesHealthMontThird: Number,
-    expensesEducationMontThird: Number,
-    expensesOtherMontThird: Number,
+    expensesFoodMontThird: String,
+    expensesTransportationMontThird: String,
+    expensesTagihanMontThird: String,
+    expensesHealthMontThird: String,
+    expensesEducationMontThird: String,
+    expensesOtherMontThird: String,
 
-    expensesFoodMontSecond: Number,
-    expensesTransportationMontSecond: Number,
-    expensesTagihanMontSecond: Number,
-    expensesHealthMontSecond: Number,
-    expensesEducationMontSecond: Number,
-    expensesOtherMontSecond: Number,
+    expensesFoodMontSecond: String,
+    expensesTransportationMontSecond: String,
+    expensesTagihanMontSecond: String,
+    expensesHealthMontSecond: String,
+    expensesEducationMontSecond: String,
+    expensesOtherMontSecond: String,
 
-    expensesFoodMontNow: Number,
-    expensesTransportationMontNow: Number,
-    expensesTagihanMontNow: Number,
-    expensesHealthMontNow: Number,
-    expensesEducationMontNow: Number,
-    expensesOtherMontNow: Number,
+    expensesFoodMontNow: String,
+    expensesTransportationMontNow: String,
+    expensesTagihanMontNow: String,
+    expensesHealthMontNow: String,
+    expensesEducationMontNow: String,
+    expensesOtherMontNow: String,
 })
 
 const bulanEmpatGrafikArea = Math.abs(props.saldoTrendMonthFourth);
@@ -423,22 +423,38 @@ const startLoadingPengeluaran = () => {
 
 <template>
     <div class="min-h-screen bg-slate-100 p-4 space-y-6">
+        <!-- skeleton laoding -->
+        <div v-if="loading"
+            class="animate-pulse relative overflow-hidden rounded-2xl w-full h-[50px] mb-3 bg-slate-500/80 p-10">
+        </div>
         <!-- Header -->
-        <div class="bg-gradient-to-r from-purple-600 to-indigo-500 rounded-2xl p-6 text-white">
+        <div v-else class="bg-gradient-to-r from-purple-600 to-indigo-500 rounded-2xl p-6 text-white">
             <h1 class="text-xl font-bold">Statistik Keuangan</h1>
             <p class="opacity-80">Analisis keuangan 4 bulan terakhir</p>
         </div>
 
+
+        <!-- skeleton laoding -->
+        <div v-if="loading" class="grid grid-cols-2 gap-4">
+            <div v-for="irul in iksan = 4" :key="irul.index"
+                class="animate-pulse relative overflow-hidden rounded-2xl w-full h-[50px] mb-3 bg-slate-500/80 p-10">
+            </div>
+        </div>
         <!-- Cards -->
-        <div class="grid grid-cols-2 gap-4">
+        <div v-else class="grid grid-cols-2 gap-4">
             <StatCard title="Total Saldo" :value="Math.abs(totalSaldo).toLocaleString('id-ID')" />
             <StatCard title="Total Investasi" :value="Math.abs(totalInvestment).toLocaleString('id-ID')" />
             <StatCard title="Total Cash" :value="Math.abs(totalCash).toLocaleString('id-ID')" />
             <StatCard title="Total Pengeluaran" :value="Math.abs(totalExpenses).toLocaleString('id-ID')" />
         </div>
 
+
+        <!-- skeleton laoding -->
+        <div v-if="loading"
+            class="animate-pulse relative overflow-hidden rounded-2xl w-full h-[270px] mb-3 bg-slate-500/80 p-10">
+        </div>
         <!-- Line Chart -->
-        <div class="bg-white rounded-2xl p-4 shadow">
+        <div v-else class="bg-white rounded-2xl p-4 shadow">
             <div class="grid grid-cols-2 justify-items-start">
                 <ChartNoAxesCombined class="ml-4 text-purple-700" />
                 <h2 class="font-semibold mb-2 ml-[-120px]">Tren Saldo</h2>
@@ -446,8 +462,13 @@ const startLoadingPengeluaran = () => {
             <VueApexCharts type="area" height="250" :options="lineOptions" :series="lineSeries" />
         </div>
 
+
+        <!-- skeleton laoding -->
+        <div v-if="loading"
+            class="animate-pulse relative overflow-hidden rounded-2xl w-full h-[270px] mb-3 bg-slate-500/80 p-10">
+        </div>
         <!-- Donut Chart -->
-        <div class="bg-white rounded-2xl p-4 shadow">
+        <div v-else class="bg-white rounded-2xl p-4 shadow">
             <div class="grid grid-cols-2 justify-items-start">
                 <ChartPie class="ml-4 text-green-700" />
                 <h2 class="font-semibold mb-2 ml-[-120px]">Distribusi Saldo</h2>
@@ -455,8 +476,13 @@ const startLoadingPengeluaran = () => {
             <VueApexCharts type="donut" height="250" :options="donutOptions" :series="donutSeries" />
         </div>
 
+
+        <!-- skeleton laoding -->
+        <div v-if="loading"
+            class="animate-pulse relative overflow-hidden rounded-2xl w-full h-[270px] mb-3 bg-slate-500/80 p-10">
+        </div>
         <!-- Bar Chart -->
-        <div class="bg-white rounded-2xl p-4 shadow">
+        <div v-else class="bg-white rounded-2xl p-4 shadow">
             <div class="grid grid-cols-2 justify-items-start">
                 <ChartColumnBig class="ml-4 text-red-500" />
                 <h2 class="font-semibold mb-2 ml-[-120px]">Pengeluaran Bulanan </h2>
@@ -464,7 +490,12 @@ const startLoadingPengeluaran = () => {
             <VueApexCharts type="bar" height="250" :options="barOptions" :series="barSeries" />
         </div>
 
-        <div class="bg-white rounded-2xl pt-4 shadow">
+
+        <!-- skeleton laoding -->
+        <div v-if="loading"
+            class="animate-pulse relative overflow-hidden rounded-2xl w-full h-[270px] mb-3 bg-slate-500/80 p-10">
+        </div>
+        <div v-else class="bg-white rounded-2xl pt-4 shadow">
             <div class="grid grid-cols-2 justify-items-start">
                 <ChartBarStacked class="ml-4 text-blue-500" />
                 <h2 class="font-semibold mb-2 ml-[-120px]">Kategori Pengeluaran Bulanan</h2>
@@ -472,8 +503,13 @@ const startLoadingPengeluaran = () => {
             <VueApexCharts type="bar" height="500" :series="barStackedSeries" :options="barStackedOptions" />
         </div>
 
+
+        <!-- skeleton laoding -->
+        <div v-if="loading"
+            class="animate-pulse relative overflow-hidden rounded-2xl w-full h-[270px] mb-3 bg-slate-500/80 p-10">
+        </div>
         <!-- Bar Chart -->
-        <div class="bg-white rounded-2xl p-4 shadow">
+        <div v-else class="bg-white rounded-2xl p-4 shadow">
             <div class="grid grid-cols-2 justify-items-start">
                 <ChartColumnBig class="ml-4 text-yellow-500" />
                 <h2 class="font-semibold mb-2 ml-[-120px]">Pengeluaran Self Reward Bulanan</h2>
@@ -574,12 +610,7 @@ const startLoadingPengeluaran = () => {
     </transition>
 
     <div class="fixed bottom-4 left-0 right-0 z-40 flex justify-center">
-        <!-- conten loader -->
-        <div v-if="loading"
-            class="animate-pulse relative overflow-hidden rounded-2xl w-[340px] h-[50px] mb-3 bg-slate-500/80 p-10">
-        </div>
-
-        <div v-else class="bg-white rounded-full shadow-xl px-6 md:px-16 py-5 flex items-center gap-8 w-[85%] max-w-md">
+        <div class="bg-white rounded-full shadow-xl px-6 md:px-16 py-5 flex items-center gap-8 w-[85%] max-w-md">
             <!-- Home -->
             <Link :href="route('financial.dashboard')">
                 <div class="flex flex-col items-center hover:text-purple-700">

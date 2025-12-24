@@ -34,13 +34,13 @@ import { usePage, Link } from '@inertiajs/vue3';
 defineProps({
     transactions: Array,
     wallets: Array,
-    walletInvestment: Object,
-    walletExpenses: Object,
-    walletCash: Object,
-    totalIncome: Object,
-    totalSelfReward: Object,
-    walletIncome: Object,
-    saldoUtama: Object,
+    walletInvestment: String,
+    walletExpenses: String,
+    walletCash: Number,
+    totalIncome: String,
+    totalSelfReward: String,
+    walletIncome: String,
+    saldoUtama: Number,
     user: Object,
 })
 
@@ -338,14 +338,6 @@ function formatShortRupiah(value) {
 
                 <div class="absolute -bottom-6 -right-6 w-20 h-20 bg-blue-200 z-0 rounded-full"></div>
             </div>
-        </div>
-
-        <!-- Action Buttons -->
-        <div class="grid grid-cols-4 gap-4 mb-6">
-            <Action icon="TrendingUp" label="Pemasukan" />
-            <Action icon="TrendingDown" label="Pengeluaran" />
-            <Action icon="ArrowUpRight" label="Transfer" />
-            <Action icon="Settings" label="Lainnya" />
         </div>
 
         <!-- content loding -->
