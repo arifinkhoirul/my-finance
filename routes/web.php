@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FinanceProfileController;
 use App\Http\Controllers\InputDataController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StatistikController;
@@ -44,6 +45,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
 
     Route::get('/statistik', [StatistikController::class, 'indexStatistik'])->name('statistik.index');
+
+    Route::get('/myfinance/profile', [FinanceProfileController::class, 'myProfile'])->name('myProfile.index');
 });
 
 

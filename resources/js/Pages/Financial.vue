@@ -515,7 +515,7 @@ function formatShortRupiah(value) {
 
                 <Link :href="route('statistik.index')">
                     <!-- Statistik -->
-                    <div class="flex flex-col items-center text-gray-400">
+                    <div class="flex flex-col items-center hover:text-purple-700 text-gray-400">
                         <BarChart2 />
                         <!-- <span class="text-xs mt-1">Statistik</span> -->
                     </div>
@@ -528,16 +528,20 @@ function formatShortRupiah(value) {
                 </div>
 
                 <!-- Pengaturan -->
-                <div class="flex flex-col items-center text-gray-400">
-                    <Settings />
-                    <!-- <span class="text-xs mt-1">Pengaturan</span> -->
-                </div>
+                <Link>
+                    <div class="flex flex-col items-center hover:text-purple-700 text-gray-400">
+                        <Settings />
+                        <!-- <span class="text-xs mt-1">Pengaturan</span> -->
+                    </div>
+                </Link>
 
                 <!-- Profil -->
-                <div class="flex flex-col items-center text-gray-400">
-                    <User />
-                    <!-- <span class="text-xs mt-1">Profil</span> -->
-                </div>
+                <Link :href="route('myProfile.index')">
+                    <div class="flex flex-col items-center hover:text-purple-700 text-gray-400">
+                        <User />
+                        <!-- <span class="text-xs mt-1">Profil</span> -->
+                    </div>
+                </Link>
             </div>
         </div>
 

@@ -576,13 +576,13 @@ const startLoadingPengeluaran = () => {
     <div class="fixed bottom-4 left-0 right-0 z-40 flex justify-center">
         <!-- conten loader -->
         <div v-if="loading"
-            class="animate-pulse relative overflow-hidden rounded-2xl w- h-[50px] mb-3 bg-slate-300/0 p-10">
+            class="animate-pulse relative overflow-hidden rounded-2xl w-[340px] h-[50px] mb-3 bg-slate-500/80 p-10">
         </div>
 
         <div v-else class="bg-white rounded-full shadow-xl px-6 md:px-16 py-5 flex items-center gap-8 w-[85%] max-w-md">
             <!-- Home -->
             <Link :href="route('financial.dashboard')">
-                <div class="flex flex-col items-center text-purple-600">
+                <div class="flex flex-col items-center hover:text-purple-700">
                     <Home />
                     <!-- <span class="text-xs mt-1">Beranda</span> -->
                 </div>
@@ -590,7 +590,7 @@ const startLoadingPengeluaran = () => {
 
             <Link :href="route('statistik.index')">
                 <!-- Statistik -->
-                <div class="flex flex-col items-center text-gray-400">
+                <div class="flex flex-col items-center text-purple-700  ">
                     <BarChart2 />
                     <!-- <span class="text-xs mt-1">Statistik</span> -->
                 </div>
@@ -603,16 +603,20 @@ const startLoadingPengeluaran = () => {
             </div>
 
             <!-- Pengaturan -->
-            <div class="flex flex-col items-center text-gray-400">
-                <Settings />
-                <!-- <span class="text-xs mt-1">Pengaturan</span> -->
-            </div>
+            <Link>
+                <div class="flex flex-col items-center hover:text-purple-700 text-gray-400">
+                    <Settings />
+                    <!-- <span class="text-xs mt-1">Pengaturan</span> -->
+                </div>
+            </Link>
 
             <!-- Profil -->
-            <div class="flex flex-col items-center text-gray-400">
-                <User />
-                <!-- <span class="text-xs mt-1">Profil</span> -->
-            </div>
+            <Link :href="route('myProfile.index')">
+                <div class="flex flex-col items-center hover:text-purple-700 text-gray-400">
+                    <User />
+                    <!-- <span class="text-xs mt-1">Profil</span> -->
+                </div>
+            </Link>
         </div>
     </div>
 </template>
