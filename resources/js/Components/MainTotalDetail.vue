@@ -1,6 +1,6 @@
 <script setup>
 import { RedoDot, TrendingDown, TrendingUp } from 'lucide-vue-next'
-import { defineProps, ref, onMounted } from 'vue';
+import { defineProps, ref, onMounted, computed } from 'vue';
 
 
 const { total, wallet } = defineProps({
@@ -8,7 +8,9 @@ const { total, wallet } = defineProps({
     wallet: String
 })
 
-const totalWallet = Math.abs(total).toLocaleString('id-ID')
+const totalWallet = computed(() => {
+    return Math.abs(Number(total)).toLocaleString('id-ID')
+})
 
 
 const loading = ref(true)

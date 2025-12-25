@@ -37,7 +37,7 @@
                 :class="wallet == 'investasi' ? 'text-[#5F42F0]' : wallet == 'pemasukan' ? 'text-green-700' : wallet == 'pengeluaran' ? 'text-red-600' : 'text-yellow-600'">
                 <Edit2 class="w-4 h-4" />
             </button>
-            <button class="text-red-500">
+            <button @click="emit('deleteChiild', dataId)" class="text-red-500">
                 <Trash2 class="w-4 h-4" />
             </button>
         </div>
@@ -46,27 +46,32 @@
 
 <script setup>
 import { ArrowLeft, TrendingUp, Edit2, Trash2, Wallet, TrendingDown, RedoDot } from 'lucide-vue-next'
-import { defineProps, ref, onMounted } from 'vue';
+import { defineProps, ref, onMounted, defineEmits } from 'vue';
 
-const { wallet, description, amount, date } = defineProps({
+
+
+
+const { wallet, description, amount, date, dataId } = defineProps({
     wallet: String,
     description: String,
     amount: String,
-    date: String
+    date: String,
+    dataId: Number
 })
 
 
 
+const emit = defineEmits(['deleteChiild'])
+
+
 
 const loading = ref(true)
-
 
 onMounted(() => {
     setTimeout(() => {
         loading.value = false
     }, 2000);
 })
-
 
 
 
@@ -100,6 +105,8 @@ const formatDate = (date) => {
     })
 }
 </script>
+
+
 
 <style scoped>
 .list-enter-active {

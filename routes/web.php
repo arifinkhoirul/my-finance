@@ -36,6 +36,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::post('/pemasukan-store', [InputDataController::class, 'storePemasukan'])->name('pemasukan.store');
 
     Route::get('/pemasukan/all', [HandlePemasukanController::class, 'allPemeasukan'])->name('pemasukan.all');
+    Route::delete('/pemasukan/destroy/{id}', [HandlePemasukanController::class, 'deletePemasukan'])->name('pemasukan.delete');
+
 
 
 
@@ -43,18 +45,21 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::post('/investasi-store', [InputDataController::class, 'storeInvestasi'])->name('investasi.store');
 
     Route::get('/investasi/all', [HandleInvestasicontroller::class, 'allInvestasi'])->name('investasi.all');
+    Route::delete('/investasi/destroy/{id}', [HandleInvestasicontroller::class, 'deleteInvestasi'])->name('investasi.delete');
 
 
     Route::get('/self-reward', [InputDataController::class, 'createSelfReward'])->name('self.reward.create');
     Route::post('/self-reward/store', [InputDataController::class, 'storeSelfReward'])->name('self.reward.store');
 
     Route::get('/self-reward/all', [HandleSelfRewardController::class, 'allSelfReward'])->name('self.reward.all');
+    Route::delete('/self-reward/destroy/{id}', [HandleSelfRewardController::class, 'deleteSelfReward'])->name('self.reward.delete');
 
 
     Route::get('/pengeluaran', [InputDataController::class, 'createPengeluaran'])->name('pengeluaran.create');
     Route::post('/pengeluaran-store', [InputDataController::class, 'storePengeluaran'])->name('pengeluaran.store');
 
     Route::get('/pengeluaran/all', [HandlePengeluaranController::class, 'allpengeluaran'])->name('pengeluaran.all');
+    Route::delete('/pengeluaran/destroy/{id}', [HandlePengeluaranController::class, 'deletePengeluaran'])->name('pengeluaran.delete');
 
 
     Route::get('/statistik', [StatistikController::class, 'indexStatistik'])->name('statistik.index');

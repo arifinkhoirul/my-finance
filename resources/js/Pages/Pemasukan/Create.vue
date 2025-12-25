@@ -83,7 +83,7 @@ function goBack() {
                     <span class="absolute left-4 top-1/2 -translate-y-1/2 text-lg font-semibold text-muted-foreground">
                         Rp
                     </span>
-                    <input id="amount" name="amount" v-model="form.amount" type="number" placeholder="0"
+                    <input id="amount" name="amount" v-model="form.amount" type="number" placeholder="0" max="200000"
                         class="pl-12 h-14 text-2xl w-full font-bold border-2 border-border focus:border-emerald-500 rounded-xl bg-card" />
                 </div>
                 <p v-if="form.errors.amount" class="text-red-500">{{ form.errors.amount }}</p>

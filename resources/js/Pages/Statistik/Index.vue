@@ -194,7 +194,7 @@ const donutSeries = [totalMoneyCashPieChart, totalInvestasiPieChart]
 
 const donutOptions = {
     labels: ['Cash', 'Investasi'],
-    colors: ['#1D4ED8', '#5F42F0']
+    colors: ['#1D4ED8', '#85409D']
 }
 
 

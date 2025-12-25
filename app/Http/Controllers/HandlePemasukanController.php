@@ -20,4 +20,17 @@ class HandlePemasukanController extends Controller
 
         return Inertia::render('Pemasukan/Index', ['allPemasukan' => $allPemasukan, 'jumlahPemasuakan' => $jumlahPemasuakan]);
     }
+
+    public function deletePemasukan(int $id)
+    {
+        if(Auth::check()) {
+
+            $dataTransaksi = Transaction::findOrFail($id);
+            // dd($dataTransaksi);
+
+            $dataTransaksi->delete();
+
+            return redirect()->route('pemasukan.all')->with(['message' => 'Kamu berhasil menghapus data']);
+        }
+    }
 }

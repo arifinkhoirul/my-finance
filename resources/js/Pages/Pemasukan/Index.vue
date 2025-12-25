@@ -3,7 +3,7 @@ import { ArrowLeft, TrendingUp, Edit2, Trash2 } from 'lucide-vue-next'
 import { defineProps, ref, onMounted } from 'vue';
 import MainTotalDetail from '@/Components/MainTotalDetail.vue';
 import RiwayatTransaksiDetail from '@/Components/RiwayatTransaksiDetail.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 
 
 
@@ -30,9 +30,60 @@ onMounted(() => {
         loading.value = false
     }, 2000);
 })
+
+
+
+// modal delete-------------------------------------------
+const showDeleteModal = ref(false)
+const selctedId = ref(null)
+
+const openDeleteModal = (id) => {
+    showDeleteModal.value = true
+    selctedId.value = id
+}
+
+const closeDeleteModal = () => {
+    showDeleteModal.value = false
+    selctedId.value = null
+}
+
+const confirmDelete = (irul) => {
+    router.delete(route('pemasukan.delete', irul))
+    showDeleteModal.value = false
+    selctedId.value = null
+}
 </script>
 
 <template>
+    <!-- modal confirm -->
+    <Transition>
+        <div v-if="showDeleteModal"
+            class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+
+            <div class="bg-white rounded-2xl w-[90%] max-w-sm p-6 shadow-xl">
+                <h3 class="text-lg font-semibold mb-2">
+                    Hapus Data?
+                </h3>
+
+                <p class="text-sm text-gray-500 mb-5">
+                    Data yang dihapus tidak dapat dikembalikan.
+                </p>
+
+                <div class="flex justify-end gap-3">
+                    <button @click="closeDeleteModal"
+                        class="px-4 py-2 rounded-xl border text-gray-600 hover:bg-gray-100">
+                        Batal
+                    </button>
+
+                    <button @click="confirmDelete(selctedId)"
+                        class="px-4 py-2 rounded-xl bg-red-600 text-white hover:bg-red-700">
+                        Ya, Hapus
+                    </button>
+                </div>
+            </div>
+        </div>
+    </Transition>
+
     <!-- pokemon loading -->
     <transition name="fade">
         <div v-if="moveLoadingPage"
@@ -71,7 +122,7 @@ onMounted(() => {
             </div> -->
             <RiwayatTransaksiDetail v-for="pemasukan in allPemasukan" :key="pemasukan.id"
                 :wallet="pemasukan.wallet.name" :description="pemasukan.description" :amount="pemasukan.amount"
-                :date="pemasukan.date" />
+                :date="pemasukan.date" :dataId="pemasukan.id" @deleteChiild="openDeleteModal" />
         </div>
 
     </div>

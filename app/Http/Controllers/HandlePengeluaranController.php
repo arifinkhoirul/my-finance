@@ -20,4 +20,17 @@ class HandlePengeluaranController extends Controller
 
         return Inertia::render('Pengeluaran/Index', ['allPengeluaran' => $allPengeluaran, 'jumlahPengeluaran' => $jumlahPengeluaran]);
     }
+
+
+    public function deletePengeluaran(int $id)
+    {
+        $user = Auth::user();
+
+        $dataTransaksi = Transaction::findOrFail($id);
+        // dd($dataTransaksi);
+
+        $dataTransaksi->delete();
+
+        return redirect()->route('pengeluaran.all')->with(['message' => 'Kamu berhasil menghapus data']);
+    }
 }

@@ -20,4 +20,18 @@ class HandleSelfRewardController extends Controller
 
         return Inertia::render('SelfReward/Index', ['allSelfReward' => $allSelfReward, 'jumlahSelfReward' => $jumlahSelfReward]);
     }
+
+
+    public function deleteSelfReward(int $id)
+    {
+        if(Auth::check()) {
+
+            $dataTransaksi = Transaction::findOrFail($id);
+            // dd($dataTransaksi);
+
+            $dataTransaksi->delete();
+
+            return redirect()->route('self.reward.all')->with(['message' => 'Kamu berhasil menghapus data']);
+        }
+    }
 }

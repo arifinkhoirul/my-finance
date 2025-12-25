@@ -20,4 +20,17 @@ class HandleInvestasicontroller extends Controller
 
         return Inertia::render('Investasi/Index', ['allInvestasi' => $allInvestasi, 'jumlahAllnvestasi' => $jumlahAllnvestasi]);
     }
+
+    public function deleteInvestasi(int $id)
+    {
+         if(Auth::check()) {
+
+            $dataTransaksi = Transaction::findOrFail($id);
+            // dd($dataTransaksi);
+
+            $dataTransaksi->delete();
+
+            return redirect()->route('investasi.all')->with(['message' => 'Kamu berhasil menghapus data']);
+        }
+    }
 }

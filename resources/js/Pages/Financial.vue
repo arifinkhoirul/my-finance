@@ -398,8 +398,11 @@ const pageUrl = (page) => {
                 </div>
 
                 <p class="text-lg text-gray-500">Cash</p>
-                <p class="text-xl md:text-3xl font-bold text-blue-600">
-                    Rp {{ Math.abs(walletCash).toLocaleString('id-ID') }}
+                <p v-if="walletIncome == 0" class="text-xl md:text-3xl font-bold text-blue-600">
+                    Rp 0
+                </p>
+                <p v-else class="text-xl md:text-3xl font-bold text-blue-600">
+                    Rp {{ walletCash ? Math.abs(walletCash).toLocaleString('id-ID') : 0 }}
                 </p>
 
                 <div class="absolute -bottom-6 -right-6 w-20 h-20 bg-blue-200 z-0 rounded-full"></div>
