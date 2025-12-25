@@ -194,7 +194,7 @@ const donutSeries = [totalMoneyCashPieChart, totalInvestasiPieChart]
 
 const donutOptions = {
     labels: ['Cash', 'Investasi'],
-    colors: ['#22c55e', '#6366f1']
+    colors: ['#1D4ED8', '#5F42F0']
 }
 
 
@@ -512,7 +512,7 @@ const loadingPage = () => {
         </div>
         <div v-else class="bg-white rounded-2xl pt-4 shadow">
             <div class="grid grid-cols-2 justify-items-start">
-                <ChartBarStacked class="ml-4 text-blue-500" />
+                <ChartBarStacked class="ml-6 text-blue-500" />
                 <h2 class="font-semibold mb-2 ml-[-120px]">Kategori Pengeluaran Bulanan</h2>
             </div>
             <VueApexCharts type="bar" height="500" :series="barStackedSeries" :options="barStackedOptions" />
