@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FinanceProfileController;
+use App\Http\Controllers\HandleInvestasicontroller;
+use App\Http\Controllers\HandlePemasukanController;
+use App\Http\Controllers\HandlePengeluaranController;
+use App\Http\Controllers\HandleSelfRewardController;
 use App\Http\Controllers\InputDataController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StatistikController;
@@ -31,17 +35,26 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/pemasukan', [InputDataController::class, 'createPemasukan'])->name('pemasukan.create');
     Route::post('/pemasukan-store', [InputDataController::class, 'storePemasukan'])->name('pemasukan.store');
 
+    Route::get('/pemasukan/all', [HandlePemasukanController::class, 'allPemeasukan'])->name('pemasukan.all');
+
+
 
     Route::get('/investasi', [InputDataController::class, 'createInvestasi'])->name('investasi.create');
     Route::post('/investasi-store', [InputDataController::class, 'storeInvestasi'])->name('investasi.store');
+
+    Route::get('/investasi/all', [HandleInvestasicontroller::class, 'allInvestasi'])->name('investasi.all');
 
 
     Route::get('/self-reward', [InputDataController::class, 'createSelfReward'])->name('self.reward.create');
     Route::post('/self-reward/store', [InputDataController::class, 'storeSelfReward'])->name('self.reward.store');
 
+    Route::get('/self-reward/all', [HandleSelfRewardController::class, 'allSelfReward'])->name('self.reward.all');
+
 
     Route::get('/pengeluaran', [InputDataController::class, 'createPengeluaran'])->name('pengeluaran.create');
     Route::post('/pengeluaran-store', [InputDataController::class, 'storePengeluaran'])->name('pengeluaran.store');
+
+    Route::get('/pengeluaran/all', [HandlePengeluaranController::class, 'allpengeluaran'])->name('pengeluaran.all');
 
 
     Route::get('/statistik', [StatistikController::class, 'indexStatistik'])->name('statistik.index');

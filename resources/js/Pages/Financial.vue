@@ -279,6 +279,9 @@ const loadingPage = () => {
                     </div>
                     <p class="text-sm">Pemasukan Bulan ini</p>
                     <p class="font-semibold">Rp {{ Math.abs(walletIncome).toLocaleString('id-ID') }}</p>
+                    <Link :href="route('pemasukan.all')" @click="loadingPage()">
+                        <p class="text-sm font-bold">Lihat transaksi</p>
+                    </Link>
                 </div>
                 <div class="bg-white/20 rounded-2xl p-4">
                     <div class="bg-red-200 w-10 px-2 py-1 rounded-full mb-2">
@@ -286,6 +289,9 @@ const loadingPage = () => {
                     </div>
                     <p class="text-sm">Pengeluaran Bulan Ini</p>
                     <p class="font-semibold">Rp {{ Math.abs(walletExpenses).toLocaleString('id-ID') }}</p>
+                    <Link :href="route('pengeluaran.all')" @click="loadingPage()">
+                        <p class="text-sm font-bold">Lihat transaksi</p>
+                    </Link>
                 </div>
             </div>
         </div>
@@ -296,21 +302,21 @@ const loadingPage = () => {
             <div v-if="loading" class="animate-pulse relative overflow-hidden rounded-2xl h-[130px] bg-slate-300 p-10">
             </div>
             <!-- Investasi -->
-            <div v-else class="relative overflow-hidden rounded-2xl transition bg-purple-100 p-10">
+            <div v-else class="relative overflow-hidden rounded-2xl transition bg-[#EDEBFF] p-10">
                 <!-- Icon -->
-                <div class="absolute top-4 right-4 bg-purple-500 text-white p-2 rounded-full">
+                <div class="absolute top-4 right-4 bg-[#5F42F0] text-white p-2 rounded-full">
                     <TrendingUp :size="18" />
                 </div>
 
                 <p class="text-lg text-gra  y-500">Investasi</p>
-                <p class="text-xl md:text-3xl font-bold text-purple-600">
+                <p class="text-xl md:text-3xl font-bold text-[#5F42F0]">
                     Rp {{ Math.abs(walletInvestment).toLocaleString('id-ID') }}
                 </p>
-                <Link>
-                    <p class="text-sm text-purple-700 font-bold">Lihat transaksi</p>
+                <Link :href="route('investasi.all')" @click="loadingPage()">
+                    <p class="text-sm text-[#5F42F0] font-bold">Lihat transaksi</p>
                 </Link>
 
-                <div class="absolute -bottom-6 -right-6 w-20 h-20 bg-purple-200 rounded-full"></div>
+                <div class="absolute -bottom-6 -right-6 w-20 h-20 bg-[#5F42F0]/20  rounded-full"></div>
                 <!-- Decorative shape -->
             </div>
 
@@ -327,7 +333,7 @@ const loadingPage = () => {
                 <p class="text-xl md:text-3xl font-bold text-yellow-600">
                     Rp {{ Math.abs(totalSelfReward).toLocaleString('id-ID') }}
                 </p>
-                <Link>
+                <Link :href="route('self.reward.all')" @click="loadingPage()">
                     <p class="text-sm text-yellow-600 font-bold">Lihat transaksi</p>
                 </Link>
 
