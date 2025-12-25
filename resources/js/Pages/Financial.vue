@@ -441,6 +441,7 @@ const pageUrl = (page) => {
                         </div>
                         <div>
                             <p class="font-medium">{{ transaction.wallet.name }}</p>
+                            <p class="text-sm text-gray-500">{{ transaction.category.name }}</p>
                             <p class="text-sm text-gray-500">{{ transaction.description }}</p>
                         </div>
                     </div>

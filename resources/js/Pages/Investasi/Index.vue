@@ -1,9 +1,9 @@
 <script setup>
-import { ArrowLeft, TrendingUp, Edit2, Trash2 } from 'lucide-vue-next'
-import { defineProps, ref, onMounted } from 'vue';
+import { ArrowLeft, TrendingUp, Edit2, Trash2, CircleCheck } from 'lucide-vue-next'
+import { defineProps, ref, onMounted, watch } from 'vue';
 import MainTotalDetail from '@/Components/MainTotalDetail.vue';
 import RiwayatTransaksiDetail from '@/Components/RiwayatTransaksiDetail.vue';
-import { Link, router } from '@inertiajs/vue3';
+import { Link, router, usePage } from '@inertiajs/vue3';
 
 
 
@@ -14,6 +14,28 @@ const { allInvestasi, jumlahAllnvestasi } = defineProps({
 })
 
 
+// flash notfifikasi------------------------------------------------
+const page = usePage()
+
+const showFlash = ref(false)
+
+watch(
+    () => page.props.flash?.message,
+    (message) => {
+        if (message) {
+            showFlash.value = true
+
+            setTimeout(() => {
+                showFlash.value = false
+            }, 3000)
+        }
+    },
+    { immediate: true }
+)
+
+
+
+// move loading pokemon-----------------------------------------------
 const moveLoadingPage = ref(false)
 
 function loadingPage() {
@@ -21,6 +43,7 @@ function loadingPage() {
 }
 
 
+// skeleton loading-----------------------------------------------
 const loading = ref(true)
 
 onMounted(() => {
@@ -31,9 +54,7 @@ onMounted(() => {
 
 
 
-// modal delete----------------
-
-
+// modal delete----------------------------------------
 const showDeleteModal = ref(false)
 const selctedId = ref(null)
 
@@ -56,6 +77,26 @@ const confirmDelete = (irul) => {
 </script>
 
 <template>
+    <!-- flash message -->
+    <Transition enter-active-class="transition ease-out duration-300" enter-from-class="opacity-0 translate-y-4"
+        enter-to-class="opacity-100 translate-y-0" leave-active-class="transition ease-in duration-300"
+        leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 translate-y-4">
+        <div v-if="showFlash"
+            class="fixed top-14 left-5 right-5 z-50 flex items-center gap-3 rounded-2xl bg-white px-5 py-2 text-black shadow-xl shadow-emerald-700/30">
+            <CircleCheck class="text-green-500 h-8 w-10" />
+
+            <p class="text-md">
+                {{ page.props.flash.message }}
+                <!-- Kamu berhasil menambahkan pemasukan -->
+            </p>
+
+            <button @click="showFlash = false" class="ml-2  rounded-full p-1 hover:bg-white/20">
+                <X class="h-4 w-4" />
+            </button>
+        </div>
+    </Transition>
+
+
     <!-- modal confirm -->
     <Transition>
         <div v-if="showDeleteModal"
@@ -124,7 +165,8 @@ const confirmDelete = (irul) => {
             </div> -->
             <RiwayatTransaksiDetail v-for="investasi in allInvestasi" :key="investasi.id"
                 :wallet="investasi.wallet.name" :description="investasi.description" :amount="investasi.amount"
-                :date="investasi.date" :dataId="investasi.id" @deleteChiild="openDeleteModal" />
+                :date="investasi.date" :dataId="investasi.id" @deleteChiild="openDeleteModal"
+                :category="investasi.category.name" />
         </div>
 
     </div>

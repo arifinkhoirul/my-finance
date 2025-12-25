@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Transaction;
 use Carbon\Carbon;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class InputDataController extends Controller
 {
     public function createPemasukan()
     {
-        return Inertia::render('Pemasukan/Create');
+        $user = Auth::user();
+        return Inertia::render('Pemasukan/Create', ['user' => $user]);
     }
 
     public function storePemasukan(Request $request)
@@ -47,9 +50,12 @@ class InputDataController extends Controller
         return redirect()->route('financial.dashboard')->with(['message' => 'Kamu berhasil menambahkan pemasukan']);
     }
 
+
+
     public function createInvestasi()
     {
-        return Inertia::render('Investasi/Create');
+        $user = Auth::user();
+        return Inertia::render('Investasi/Create', ['user' => $user]);
     }
 
     public function storeInvestasi(Request $request)
@@ -81,9 +87,14 @@ class InputDataController extends Controller
     }
 
 
+
+
+
+
     public function createSelfReward()
     {
-        return Inertia::render('SelfReward/Create');
+        $user = Auth::user();
+        return Inertia::render('SelfReward/Create', ['user' => $user]);
     }
 
     public function storeSelfReward(Request $request)
@@ -117,7 +128,8 @@ class InputDataController extends Controller
 
     public function createPengeluaran()
     {
-        return Inertia::render('Pengeluaran/Create');
+        $user = Auth::user();
+        return Inertia::render('Pengeluaran/Create', ['user' => $user]);
     }
 
     public function storePengeluaran(Request $request)

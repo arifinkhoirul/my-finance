@@ -13,7 +13,9 @@ const { allPengeluaran, jumlahPengeluaran } = defineProps({
     jumlahPengeluaran: String
 })
 
-const iksan = ref(jumlahPengeluaran)
+
+
+
 
 
 const moveLoadingPage = ref(false)
@@ -78,6 +80,25 @@ watch(
 </script>
 
 <template>
+    <!-- flash message -->
+    <Transition enter-active-class="transition ease-out duration-300" enter-from-class="opacity-0 translate-y-4"
+        enter-to-class="opacity-100 translate-y-0" leave-active-class="transition ease-in duration-300"
+        leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 translate-y-4">
+        <div v-if="showFlash"
+            class="fixed top-14 left-5 right-5 z-50 flex items-center gap-3 rounded-2xl bg-white px-5 py-2 text-black shadow-xl shadow-emerald-700/30">
+            <CircleCheck class="text-green-500 h-8 w-10" />
+
+            <p class="text-md">
+                {{ page.props.flash.message }}
+                <!-- Kamu berhasil menambahkan pemasukan -->
+            </p>
+
+            <button @click="showFlash = false" class="ml-2  rounded-full p-1 hover:bg-white/20">
+                <X class="h-4 w-4" />
+            </button>
+        </div>
+    </Transition>
+
     <!-- delete modal -->
     <Transition>
         <div v-if="showDeleteModal"
@@ -164,7 +185,8 @@ watch(
             </div> -->
             <RiwayatTransaksiDetail v-for="pengeluaran in allPengeluaran" :key="pengeluaran.id"
                 :wallet="pengeluaran.wallet.name" :description="pengeluaran.description" :amount="pengeluaran.amount"
-                :date="pengeluaran.date" :dataId="pengeluaran.id" @deleteChiild="openDeleteModal" />
+                :date="pengeluaran.date" :dataId="pengeluaran.id" @deleteChiild="openDeleteModal"
+                :category="pengeluaran.category.name" />
         </div>
 
     </div>

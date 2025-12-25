@@ -14,8 +14,11 @@
 
             <div class="mr-1">
                 <h3 class="font-semibold">
-                    {{ wallet }}
+                    {{ capitalizeFirst(wallet) }}
                 </h3>
+                <p class="text-sm text-gray-700">
+                    {{ capitalizeFirst(category) }}
+                </p>
                 <p class="text-sm text-gray-500">
                     {{ description }}
                 </p>
@@ -33,10 +36,13 @@
         </div>
 
         <div class="flex items-center gap-3 ml-4">
-            <button
-                :class="wallet == 'investasi' ? 'text-[#5F42F0]' : wallet == 'pemasukan' ? 'text-green-700' : wallet == 'pengeluaran' ? 'text-red-600' : 'text-yellow-600'">
-                <Edit2 class="w-4 h-4" />
-            </button>
+            <Link
+                :href="wallet == 'investasi' ? route('investasi.edit', dataId) : wallet == 'pemasukan' ? route('pemasukan.edit', dataId) : wallet == 'pengeluaran' ? route('pengeluaran.edit', dataId) : route('self.reward.edit', dataId)">
+                <button
+                    :class="wallet == 'investasi' ? 'text-[#5F42F0]' : wallet == 'pemasukan' ? 'text-green-700' : wallet == 'pengeluaran' ? 'text-red-600' : 'text-yellow-600'">
+                    <Edit2 class="w-4 h-4" />
+                </button>
+            </Link>
             <button @click="emit('deleteChiild', dataId)" class="text-red-500">
                 <Trash2 class="w-4 h-4" />
             </button>
@@ -45,9 +51,14 @@
 </template>
 
 <script setup>
+import { Link } from '@inertiajs/vue3';
 import { ArrowLeft, TrendingUp, Edit2, Trash2, Wallet, TrendingDown, RedoDot } from 'lucide-vue-next'
-import { defineProps, ref, onMounted, defineEmits } from 'vue';
+import { defineProps, ref, onMounted, defineEmits, capitalize } from 'vue';
 
+function capitalizeFirst(text) {
+    if (!text) return ''
+    return text.charAt(0).toUpperCase() + text.slice(1)
+}
 
 
 
@@ -56,7 +67,8 @@ const { wallet, description, amount, date, dataId } = defineProps({
     description: String,
     amount: String,
     date: String,
-    dataId: Number
+    dataId: Number,
+    category: String
 })
 
 

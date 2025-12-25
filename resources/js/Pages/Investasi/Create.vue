@@ -2,9 +2,10 @@
 import { ArrowLeft, TrendingUp, Calendar, FileText, Tag, DollarSign, ChartCandlestick } from "lucide-vue-next";
 import Datepicker from "vue3-datepicker"
 import { ref } from "vue";
-import { useForm, Link } from "@inertiajs/vue3";
+import { useForm, Link, usePage } from "@inertiajs/vue3";
 
 
+const page = usePage()
 
 const categories = [
     { id: 4, label: "Saham", icon: "📊" },
@@ -21,7 +22,7 @@ const form = useForm({
     date: null,
     description: null,
     wallet_id: 3,
-    user_id: 1,
+    user_id: page.props.user.id,
     type: 'investment',
 
 })

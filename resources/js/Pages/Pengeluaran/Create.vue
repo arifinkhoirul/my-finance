@@ -2,11 +2,14 @@
 import { ArrowLeft, TrendingUp, Calendar, FileText, Tag, DollarSign, ChartCandlestick, ArrowDownWideNarrow, ArrowDown, TrendingDown } from "lucide-vue-next";
 import Datepicker from "vue3-datepicker"
 import { ref } from "vue";
-import { useForm, Link } from "@inertiajs/vue3";
+import { useForm, Link, usePage } from "@inertiajs/vue3";
 // import { VueDatePicker } from '@vuepic/vue-datepicker'
 // import '@vuepic/vue-datepicker/dist/main.css'
 
 // const date = ref(null);
+
+
+const page = usePage()
 
 
 const categories = [
@@ -25,7 +28,7 @@ const form = useForm({
     date: null,
     description: null,
     wallet_id: 2,
-    user_id: 1,
+    user_id: page.props.user.id,
     type: 'expenses',
 
 })

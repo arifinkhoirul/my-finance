@@ -1,12 +1,12 @@
 <script setup>
-import { ArrowLeft, TrendingUp, Calendar, FileText, Tag, DollarSign } from "lucide-vue-next";
+import { ArrowLeft, TrendingUp, Calendar, FileText, Tag, DollarSign, ChartCandlestick, TrendingUpDown } from "lucide-vue-next";
 import Datepicker from "vue3-datepicker"
 import { ref } from "vue";
 import { useForm, Link, usePage } from "@inertiajs/vue3";
 
 
-
 const page = usePage()
+
 
 const categories = [
     { id: 1, label: "Gaji", icon: "💼" },
@@ -17,31 +17,27 @@ const categories = [
     { id: 10, label: "Lainnya", icon: "📦" },
 ];
 
-
 const form = useForm({
-    amount: null,
-    category_id: null,
-    date: null,
-    description: null,
+    amount: page.props.dataTransaksi.amount,
+    category_id: page.props.dataTransaksi.category_id,
+    date: page.props.dataTransaksi.date ? new Date(page.props.dataTransaksi.date) : null,
+    description: page.props.dataTransaksi.description,
     wallet_id: 1,
     user_id: page.props.user.id,
     type: 'income',
+
 })
 
-function submit() {
-    form.post(route('pemasukan.store'))
+function update() {
+    form.put(route('pemasukan.update', page.props.dataTransaksi.id))
 }
+
 
 
 const loading = ref(false)
 
 function goBack() {
     loading.value = true
-
-    // simulasi proses (API / pindah halaman)
-    setTimeout(() => {
-        loading.value = false
-    }, 3000)
 }
 </script>
 
@@ -57,7 +53,7 @@ function goBack() {
         <div class="sticky top-0 z-40 bg-background/50 backdrop-blur-lg border-b border-border">
             <div class="mx-auto max-w-lg px-4 py-4">
                 <div class="flex items-center gap-4 ">
-                    <Link :href="route('financial.dashboard')" @click="goBack()">
+                    <Link :href="route('pemasukan.all')" @click="goBack()">
                         <button class="bg-white shadow p-3 rounded-xl">
                             <ArrowLeft class="h-5 w-5 text-foreground" />
                         </button>
@@ -68,7 +64,7 @@ function goBack() {
                             <TrendingUp class="h-5 w-5 text-white" />
                         </div>
                         <div>
-                            <h1 class="text-lg font-bold text-foreground">Tambah Pemasukan</h1>
+                            <h1 class="text-lg font-bold text-foreground">Edit Pengeluaran</h1>
                             <p class="text-xs text-slate-500">Catat investasi Anda</p>
                         </div>
                     </div>
@@ -76,7 +72,7 @@ function goBack() {
             </div>
         </div>
 
-        <form @submit.prevent="submit" class="mx-auto max-w-lg px-4 pt-6 space-y-6">
+        <form @submit.prevent="update" class="mx-auto max-w-lg px-4 pt-6 space-y-6">
             <div class="space-y-2">
                 <label htmlFor="amount" class="text-sm font-medium text-foreground flex items-center gap-2">
                     <DollarSign class="h-4 w-4 text-emerald-500" />
@@ -86,7 +82,7 @@ function goBack() {
                     <span class="absolute left-4 top-1/2 -translate-y-1/2 text-lg font-semibold text-muted-foreground">
                         Rp
                     </span>
-                    <input id="amount" name="amount" v-model="form.amount" type="number" placeholder="0" max="200000"
+                    <input id="amount" name="amount" v-model="form.amount" type="number" placeholder="0"
                         class="pl-12 h-14 text-2xl w-full font-bold border-2 border-border focus:border-emerald-500 rounded-xl bg-card" />
                 </div>
                 <p v-if="form.errors.amount" class="text-red-500">{{ form.errors.amount }}</p>

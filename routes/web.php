@@ -32,11 +32,15 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/financial-dashboard', [DashboardController::class, 'index'])->name('financial.dashboard');
 
 
+
     Route::get('/pemasukan', [InputDataController::class, 'createPemasukan'])->name('pemasukan.create');
     Route::post('/pemasukan-store', [InputDataController::class, 'storePemasukan'])->name('pemasukan.store');
 
     Route::get('/pemasukan/all', [HandlePemasukanController::class, 'allPemeasukan'])->name('pemasukan.all');
     Route::delete('/pemasukan/destroy/{id}', [HandlePemasukanController::class, 'deletePemasukan'])->name('pemasukan.delete');
+
+    Route::get('/pemasukan/edit/{id}', [HandlePemasukanController::class, 'editPemasukan'])->name('pemasukan.edit');
+    Route::put('/pemasukan/update/{id}', [HandlePemasukanController::class, 'updatePemasukan'])->name('pemasukan.update');
 
 
 
@@ -47,6 +51,12 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/investasi/all', [HandleInvestasicontroller::class, 'allInvestasi'])->name('investasi.all');
     Route::delete('/investasi/destroy/{id}', [HandleInvestasicontroller::class, 'deleteInvestasi'])->name('investasi.delete');
 
+    Route::get('/investasi/edit/{id}', [HandleInvestasicontroller::class, 'editInvestasi'])->name('investasi.edit');
+    Route::put('/investasi/update/{id}', [HandleInvestasicontroller::class, 'updateInvestasi'])->name('investasi.update');
+
+
+
+
 
     Route::get('/self-reward', [InputDataController::class, 'createSelfReward'])->name('self.reward.create');
     Route::post('/self-reward/store', [InputDataController::class, 'storeSelfReward'])->name('self.reward.store');
@@ -54,12 +64,25 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/self-reward/all', [HandleSelfRewardController::class, 'allSelfReward'])->name('self.reward.all');
     Route::delete('/self-reward/destroy/{id}', [HandleSelfRewardController::class, 'deleteSelfReward'])->name('self.reward.delete');
 
+    Route::get('/self-reward/edit/{id}', [HandleSelfRewardController::class, 'editSelfReward'])->name('self.reward.edit');
+    Route::put('/self-reward/update/{id}', [HandleSelfRewardController::class, 'updateSelfReward'])->name('self.reward.update');
+
+
+
+
+
 
     Route::get('/pengeluaran', [InputDataController::class, 'createPengeluaran'])->name('pengeluaran.create');
     Route::post('/pengeluaran-store', [InputDataController::class, 'storePengeluaran'])->name('pengeluaran.store');
 
     Route::get('/pengeluaran/all', [HandlePengeluaranController::class, 'allpengeluaran'])->name('pengeluaran.all');
     Route::delete('/pengeluaran/destroy/{id}', [HandlePengeluaranController::class, 'deletePengeluaran'])->name('pengeluaran.delete');
+
+    Route::get('/pengeluaran/edit/{id}', [HandlePengeluaranController::class, 'editPengeluaran'])->name('pengeluaran.edit');
+    Route::put('/pengeluaran/update/{id}', [HandlePengeluaranController::class, 'updatePengeluaran'])->name('pengeluaran.update');
+
+
+
 
 
     Route::get('/statistik', [StatistikController::class, 'indexStatistik'])->name('statistik.index');
