@@ -16,7 +16,7 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
-        $transactions = Transaction::where('user_id', $user->id)->with('category', 'wallet')->orderBy('date', 'desc')->get();
+        $transactions = Transaction::where('user_id', $user->id)->with('category', 'wallet')->orderBy('date', 'desc')->paginate(10);
         $wallets = Wallet::where('user_id', $user->id)->latest()->get();
 
         $walletInvestment = Transaction::where('user_id', $user->id)->where('wallet_id', 3)->sum('amount');

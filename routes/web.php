@@ -60,6 +60,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/statistik', [StatistikController::class, 'indexStatistik'])->name('statistik.index');
 
     Route::get('/myfinance/profile', [FinanceProfileController::class, 'myProfile'])->name('myProfile.index');
+
 });
 
 

@@ -2,6 +2,7 @@
     <div v-if="loading"
         class="animate-pulse relative overflow-hidden rounded-2xl w-full h-[85px] mb-3 bg-slate-500/80 p-10">
     </div>
+
     <div v-else class="bg-white rounded-xl p-4 flex items-center justify-between shadow-sm">
         <div class="flex items-center gap-4">
             <div class="bg-[#EDEBFF] w-12 h-12 rounded-xl flex items-center justify-center"
@@ -27,7 +28,7 @@
                 Rp {{ Math.abs(amount).toLocaleString('id-ID') }}
             </p>
             <p class="text-sm text-gray-400">
-                {{ date }}
+                {{ formatDate(date) }}
             </p>
         </div>
 
@@ -66,6 +67,54 @@ onMounted(() => {
     }, 2000);
 })
 
+
+
+
+
+const formatDate = (date) => {
+    const d = new Date(date)
+    const now = new Date()
+
+    const isToday =
+        d.getDate() === now.getDate() &&
+        d.getMonth() === now.getMonth() &&
+        d.getFullYear() === now.getFullYear()
+
+    const yesterday = new Date()
+    yesterday.setDate(now.getDate() - 1)
+
+    const isYesterday =
+        d.getDate() === yesterday.getDate() &&
+        d.getMonth() === yesterday.getMonth() &&
+        d.getFullYear() === yesterday.getFullYear()
+
+    const time = d.toLocaleTimeString('id-ID')
+
+    // if (isToday) return `Hari ini, ${time}`
+    // if (isYesterday) return `Kemarin, ${time}`
+
+    return d.toLocaleDateString('id-ID', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+    })
+}
 </script>
 
-<style></style>
+<style scoped>
+.list-enter-active {
+    animation: fadeSlideUp 0.5s ease-out forwards;
+}
+
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>

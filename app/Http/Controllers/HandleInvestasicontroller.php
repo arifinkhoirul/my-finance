@@ -13,7 +13,7 @@ class HandleInvestasicontroller extends Controller
     {
         $user = Auth::user();
 
-        $allInvestasi = Transaction::with('category', 'wallet')->where('user_id', $user->id)->where('type', 'investment')->get();
+        $allInvestasi = Transaction::with('category', 'wallet')->where('user_id', $user->id)->where('type', 'investment')->orderBy('date', 'DESC')->get();
         $jumlahAllnvestasi = Transaction::where('user_id', $user->id)->where('type', 'investment')->sum('amount');
 
         // dd($allInvestasi);

@@ -13,7 +13,7 @@ class HandlePemasukanController extends Controller
     {
         $user = Auth::user();
 
-        $allPemasukan = Transaction::with('category', 'wallet')->where('user_id', $user->id)->where('type', 'income')->get();
+        $allPemasukan = Transaction::with('category', 'wallet')->where('user_id', $user->id)->where('type', 'income')->orderBy('date', 'DESC')->get();
         $jumlahPemasuakan = Transaction::where('user_id', $user->id)->where('type', 'income')->sum('amount');
 
         // dd($allInvestasi);

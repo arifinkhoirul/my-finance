@@ -26,13 +26,13 @@ import {
     CircleCheck,
     LogOut
 } from 'lucide-vue-next'
-import { defineProps, ref, watch, onMounted } from 'vue';
+import { defineProps, ref, watch, onMounted, computed } from 'vue';
 import { usePage, Link } from '@inertiajs/vue3';
 
 
 // -----------------------------------
 defineProps({
-    transactions: Array,
+    // transactions: Array,
     wallets: Array,
     walletInvestment: String,
     walletExpenses: String,
@@ -184,7 +184,55 @@ const moveLoadingPage = ref(false)
 const loadingPage = () => {
     moveLoadingPage.value = true
 }
+
+// ---------------paginataion-------------
+
+
+const data = page.props.transactions
+
+const currentPage = data.current_page
+const lastPage = data.last_page
+
+const pagination = {
+    prev: data.prev_page_url,
+    next: data.next_page_url,
+}
+
+const pages = computed(() => {
+    const delta = 2
+    const range = []
+    const result = []
+
+    for (let i = Math.max(2, currentPage - delta);
+        i <= Math.min(lastPage - 1, currentPage + delta);
+        i++) {
+        range.push(i)
+    }
+
+    if (currentPage > delta + 2) {
+        result.push(1, '...')
+    } else {
+        result.push(1)
+    }
+
+    result.push(...range)
+
+    if (currentPage < lastPage - delta - 1) {
+        result.push('...', lastPage)
+    } else if (lastPage !== 1) {
+        result.push(lastPage)
+    }
+
+    return [...new Set(result)]
+})
+
+const pageUrl = (page) => {
+    return `${data.path}?page=${page}`
+}
+
 </script>
+
+
 
 <template>
     <transition name="fade">
@@ -373,45 +421,62 @@ const loadingPage = () => {
         </div>
 
         <div class="space-y-3">
-            <!-- skeleton -->
-            <div v-if="loading" class="animate-pulse relative overflow-hidden rounded-2xl h-[60px] bg-slate-300 p-10">
-            </div>
-            <div v-if="loading" class="animate-pulse relative overflow-hidden rounded-2xl h-[60px] bg-slate-300 p-10">
-            </div>
-            <div v-if="loading" class="animate-pulse relative overflow-hidden rounded-2xl h-[60px] bg-slate-300 p-10">
-            </div>
-            <div v-if="loading" class="animate-pulse relative overflow-hidden rounded-2xl h-[60px] bg-slate-300 p-10">
-            </div>
-            <!-- end skeleton -->
-
             <!-- infromation transaction -->
-            <div v-else v-for="transaction in transactions" :key="transaction.id"
-                class="bg-white rounded-2xl p-4 flex justify-between items-center">
-                <!--  -->
-                <div class="flex items-center gap-3">
-                    <div :class="transaction.category.name == 'makanan' ? 'bg-red-200' : transaction.category.name == 'transportasi' ? 'bg-red-200' : transaction.category.name == 'tagihan' ? 'bg-red-200' : transaction.category.name == 'kesehatan' ? 'bg-red-200' : transaction.category.name == 'pendidikan' ? 'bg-red-200' : transaction.category.name == 'lainnya pengeluaran' ? 'bg-red-200' : transaction.category.name == 'gaji' ? 'bg-green-200' : transaction.category.name == 'freelance' ? 'bg-green-200' : transaction.category.name == 'hasil investasi' ? 'bg-green-200' : transaction.category.name == 'hadiah' ? 'bg-green-200' : transaction.category.name == 'bonus' ? 'bg-green-200' : transaction.category.name == 'lainnya pemasukan' ? 'bg-green-200' : transaction.category.name == 'saham' ? 'bg-purple-200' : transaction.category.name == 'crypto' ? 'bg-purple-200' : transaction.category.name == 'reksadana' ? 'bg-purple-200' : transaction.category.name == 'emas' ? 'bg-purple-200' : transaction.category.name == 'properti' ? 'bg-purple-200' : transaction.category.name == 'lainnya investasi' ? 'bg-purple-200' : transaction.category.name == 'belanja' ? 'bg-yellow-200' : transaction.category.name == 'liburan' ? 'bg-yellow-200' : transaction.category.name == 'kuliner' ? 'bg-yellow-200' : transaction.category.name == 'hiburan' ? 'bg-yellow-200' : transaction.category.name == 'hobi' ? 'bg-yellow-200' : transaction.category.name == 'lainnya self reward' ? 'bg-yellow-200' : 'bg-yellow-200'"
-                        class="w-10 h-10 rounded-xl  flex items-center justify-center">
-                        <component
-                            :class="transaction.category.name == 'makanan' ? 'text-red-700' : transaction.category.name == 'transportasi' ? 'text-red-700' : transaction.category.name == 'tagihan' ? 'text-red-700' : transaction.category.name == 'kesehatan' ? 'text-red-700' : transaction.category.name == 'pendidikan' ? 'text-red-700' : transaction.category.name == 'lainnya_pengeluaran' ? 'text-red-700' : transaction.category.name == 'gaji' ? 'text-green-700' : transaction.category.name == 'freelance' ? 'text-green-700' : transaction.category.name == 'hasil investasi' ? 'text-green-700' : transaction.category.name == 'hadiah' ? 'text-green-700' : transaction.category.name == 'bonus' ? 'text-green-700' : transaction.category.name == 'lainnya pemasukan' ? 'text-green-700' : transaction.category.name == 'saham' ? 'text-purple-600' : transaction.category.name == 'crypto' ? 'text-purple-600' : transaction.category.name == 'reksadana' ? 'text-purple-600' : transaction.category.name == 'emas' ? 'text-purple-600' : transaction.category.name == 'properti' ? 'text-purple-600' : transaction.category.name == 'lainnya investasi' ? 'text-purple-600' : transaction.category.name == 'belanja' ? 'text-yellow-700' : transaction.category.name == 'liburan' ? 'text-yellow-700' : transaction.category.name == 'kuliner' ? 'text-yellow-700' : transaction.category.name == 'hiburan' ? 'text-yellow-700' : transaction.category.name == 'hobi' ? 'text-yellow-700' : transaction.category.name == 'lainnya self reward' ? 'text-yellow-700' : 'text-yellow-700'"
-                            :is="transaction.category.name == 'makanan' ? BanknoteArrowUp : transaction.category.name == 'transportasi' ? BanknoteArrowUp : transaction.category.name == 'tagihan' ? BanknoteArrowUp : transaction.category.name == 'kesehatan' ? BanknoteArrowUp : transaction.category.name == 'pendidikan' ? BanknoteArrowUp : transaction.category.name == 'lainnya pengeluaran' ? BanknoteArrowUp : transaction.category.name == 'gaji' ? BanknoteArrowDown : transaction.category.name == 'freelance' ? BanknoteArrowDown : transaction.category.name == 'hasil investasi' ? BanknoteArrowDown : transaction.category.name == 'hadiah' ? BanknoteArrowDown : transaction.category.name == 'bonus' ? BanknoteArrowDown : transaction.category.name == 'lainnya pemasukan' ? BanknoteArrowDown : transaction.category.name == 'saham' ? ChartCandlestick : transaction.category.name == 'crypto' ? ChartCandlestick : transaction.category.name == 'reksadana' ? ChartCandlestick : transaction.category.name == 'emas' ? ChartCandlestick : transaction.category.name == 'properti' ? ChartCandlestick : transaction.category.name == 'lainnya investasi' ? ChartCandlestick : transaction.category.name == 'belanja' ? RedoDot : transaction.category.name == 'liburan' ? RedoDot : transaction.category.name == 'kuliner' ? RedoDot : transaction.category.name == 'hiburan' ? RedoDot : transaction.category.name == 'hobi' ? RedoDot : transaction.category.name == 'lainnya self reward' ? RedoDot : RedoDot" />
-                    </div>
-                    <div>
-                        <p class="font-medium">{{ transaction.wallet.name }}</p>
-                        <p class="text-sm text-gray-500">{{ transaction.description }}</p>
-                    </div>
+            <div v-for="transaction in page.props.transactions.data" :key="transaction.id">
+                <!-- skeleton -->
+                <div v-if="loading"
+                    class="animate-pulse relative overflow-hidden rounded-2xl h-[60px] bg-slate-300 p-10">
                 </div>
-                <!-- <p>{{ transaction.wallet.name }}</p> -->
-                <div class="text-right">
-                    <p
-                        :class="transaction.wallet.name == 'pengeluaran' ? 'text-red-500' : transaction.wallet.name == 'pemasukan' ? 'text-green-700' : transaction.wallet.name == 'investasi' ? 'text-purple-600' : 'text-yellow-500'">
-                        {{ transaction.wallet.name == 'pengeluaran' ? '-' : transaction.wallet.name == 'pemasukan' ? '+'
-                            : transaction.wallet.name == 'investasi' ? '->' : '-' }}Rp {{
-                            Math.abs(transaction.amount).toLocaleString('id-ID') }}
-                    </p>
-                    <p class="text-xs text-gray-400">{{ formatDate(transaction.date) }}</p>
+                <div v-else class="bg-white rounded-2xl p-4 flex justify-between items-center">
+                    <!--  -->
+                    <div class="flex items-center gap-3">
+                        <div :class="transaction.category.name == 'makanan' ? 'bg-red-200' : transaction.category.name == 'transportasi' ? 'bg-red-200' : transaction.category.name == 'tagihan' ? 'bg-red-200' : transaction.category.name == 'kesehatan' ? 'bg-red-200' : transaction.category.name == 'pendidikan' ? 'bg-red-200' : transaction.category.name == 'lainnya pengeluaran' ? 'bg-red-200' : transaction.category.name == 'gaji' ? 'bg-green-200' : transaction.category.name == 'freelance' ? 'bg-green-200' : transaction.category.name == 'hasil investasi' ? 'bg-green-200' : transaction.category.name == 'hadiah' ? 'bg-green-200' : transaction.category.name == 'bonus' ? 'bg-green-200' : transaction.category.name == 'lainnya pemasukan' ? 'bg-green-200' : transaction.category.name == 'saham' ? 'bg-purple-200' : transaction.category.name == 'crypto' ? 'bg-purple-200' : transaction.category.name == 'reksadana' ? 'bg-purple-200' : transaction.category.name == 'emas' ? 'bg-purple-200' : transaction.category.name == 'properti' ? 'bg-purple-200' : transaction.category.name == 'lainnya investasi' ? 'bg-purple-200' : transaction.category.name == 'belanja' ? 'bg-yellow-200' : transaction.category.name == 'liburan' ? 'bg-yellow-200' : transaction.category.name == 'kuliner' ? 'bg-yellow-200' : transaction.category.name == 'hiburan' ? 'bg-yellow-200' : transaction.category.name == 'hobi' ? 'bg-yellow-200' : transaction.category.name == 'lainnya self reward' ? 'bg-yellow-200' : 'bg-yellow-200'"
+                            class="w-10 h-10 rounded-xl  flex items-center justify-center">
+                            <component
+                                :class="transaction.category.name == 'makanan' ? 'text-red-700' : transaction.category.name == 'transportasi' ? 'text-red-700' : transaction.category.name == 'tagihan' ? 'text-red-700' : transaction.category.name == 'kesehatan' ? 'text-red-700' : transaction.category.name == 'pendidikan' ? 'text-red-700' : transaction.category.name == 'lainnya_pengeluaran' ? 'text-red-700' : transaction.category.name == 'gaji' ? 'text-green-700' : transaction.category.name == 'freelance' ? 'text-green-700' : transaction.category.name == 'hasil investasi' ? 'text-green-700' : transaction.category.name == 'hadiah' ? 'text-green-700' : transaction.category.name == 'bonus' ? 'text-green-700' : transaction.category.name == 'lainnya pemasukan' ? 'text-green-700' : transaction.category.name == 'saham' ? 'text-purple-600' : transaction.category.name == 'crypto' ? 'text-purple-600' : transaction.category.name == 'reksadana' ? 'text-purple-600' : transaction.category.name == 'emas' ? 'text-purple-600' : transaction.category.name == 'properti' ? 'text-purple-600' : transaction.category.name == 'lainnya investasi' ? 'text-purple-600' : transaction.category.name == 'belanja' ? 'text-yellow-700' : transaction.category.name == 'liburan' ? 'text-yellow-700' : transaction.category.name == 'kuliner' ? 'text-yellow-700' : transaction.category.name == 'hiburan' ? 'text-yellow-700' : transaction.category.name == 'hobi' ? 'text-yellow-700' : transaction.category.name == 'lainnya self reward' ? 'text-yellow-700' : 'text-yellow-700'"
+                                :is="transaction.category.name == 'makanan' ? BanknoteArrowUp : transaction.category.name == 'transportasi' ? BanknoteArrowUp : transaction.category.name == 'tagihan' ? BanknoteArrowUp : transaction.category.name == 'kesehatan' ? BanknoteArrowUp : transaction.category.name == 'pendidikan' ? BanknoteArrowUp : transaction.category.name == 'lainnya pengeluaran' ? BanknoteArrowUp : transaction.category.name == 'gaji' ? BanknoteArrowDown : transaction.category.name == 'freelance' ? BanknoteArrowDown : transaction.category.name == 'hasil investasi' ? BanknoteArrowDown : transaction.category.name == 'hadiah' ? BanknoteArrowDown : transaction.category.name == 'bonus' ? BanknoteArrowDown : transaction.category.name == 'lainnya pemasukan' ? BanknoteArrowDown : transaction.category.name == 'saham' ? ChartCandlestick : transaction.category.name == 'crypto' ? ChartCandlestick : transaction.category.name == 'reksadana' ? ChartCandlestick : transaction.category.name == 'emas' ? ChartCandlestick : transaction.category.name == 'properti' ? ChartCandlestick : transaction.category.name == 'lainnya investasi' ? ChartCandlestick : transaction.category.name == 'belanja' ? RedoDot : transaction.category.name == 'liburan' ? RedoDot : transaction.category.name == 'kuliner' ? RedoDot : transaction.category.name == 'hiburan' ? RedoDot : transaction.category.name == 'hobi' ? RedoDot : transaction.category.name == 'lainnya self reward' ? RedoDot : RedoDot" />
+                        </div>
+                        <div>
+                            <p class="font-medium">{{ transaction.wallet.name }}</p>
+                            <p class="text-sm text-gray-500">{{ transaction.description }}</p>
+                        </div>
+                    </div>
+                    <!-- <p>{{ transaction.wallet.name }}</p> -->
+                    <div class="text-right">
+                        <p
+                            :class="transaction.wallet.name == 'pengeluaran' ? 'text-red-500' : transaction.wallet.name == 'pemasukan' ? 'text-green-700' : transaction.wallet.name == 'investasi' ? 'text-purple-600' : 'text-yellow-500'">
+                            {{ transaction.wallet.name == 'pengeluaran' ? '-' : transaction.wallet.name == 'pemasukan' ?
+                                '+'
+                                : transaction.wallet.name == 'investasi' ? '->' : '-' }}Rp {{
+                                Math.abs(transaction.amount).toLocaleString('id-ID') }}
+                        </p>
+                        <p class="text-xs text-gray-400">{{ formatDate(transaction.date) }}</p>
+                    </div>
                 </div>
             </div>
             <!-- end transaction -->
+        </div>
+        <div v-if="page.props.transactions.links.length > 3" class="flex gap-2 mt-6 justify-center items-center">
+            <!-- PREV -->
+            <Link v-if="pagination.prev" :href="pagination.prev" class="px-3 py-1 rounded border">
+                <- </Link>
+
+                    <!-- PAGE NUMBERS -->
+                    <template v-for="p in pages" :key="p">
+                        <span v-if="p === '...'" class="px-3 py-1 text-gray-400">
+                            …
+                        </span>
+
+                        <Link v-else :href="pageUrl(p)" class="px-3 py-1 rounded-md border"
+                            :class="{ 'bg-[#5F42F0] text-white': p === currentPage }">
+                            {{ p }}
+                        </Link>
+                    </template>
+
+                    <!-- NEXT -->
+                    <Link v-if="pagination.next" :href="pagination.next" class="px-3 py-1 rounded border">
+                        ->
+                    </Link>
         </div>
 
 

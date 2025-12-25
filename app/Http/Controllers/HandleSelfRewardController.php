@@ -13,7 +13,7 @@ class HandleSelfRewardController extends Controller
     {
         $user = Auth::user();
 
-        $allSelfReward = Transaction::with('category', 'wallet')->where('user_id', $user->id)->where('type', 'self-reward')->get();
+        $allSelfReward = Transaction::with('category', 'wallet')->where('user_id', $user->id)->where('type', 'self-reward')->orderBy('date', 'DESC')->get();
         $jumlahSelfReward = Transaction::where('user_id', $user->id)->where('type', 'self-reward')->sum('amount');
 
         // dd($allSelfReward);

@@ -13,7 +13,7 @@ class HandlePengeluaranController extends Controller
     {
         $user = Auth::user();
 
-        $allPengeluaran = Transaction::with('category', 'wallet')->where('user_id', $user->id)->where('type', 'expenses')->get();
+        $allPengeluaran = Transaction::with('category', 'wallet')->where('user_id', $user->id)->where('type', 'expenses')->orderBy('date', 'DESC')->get();
         $jumlahPengeluaran = Transaction::where('user_id', $user->id)->where('type', 'expenses')->sum('amount');
 
         // dd($allInvestasi);
