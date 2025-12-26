@@ -223,11 +223,11 @@ const loadingPage = () => {
                 class="animate-pulse relative overflow-hidden rounded-2xl w-ful h-[80px] mb-3 bg-slate-500/80 p-10">
             </div>
             <!-- Logout -->
-            <button v-else
+            <Link :href="route('logout')" method="post" as="button"
                 class="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-red-100 tepurplungu-sesuai font-semibold">
                 <LogOut size="18" />
                 Keluar dari Akun
-            </button>
+            </Link>
         </div>
 
         <!-- Backdrop -->

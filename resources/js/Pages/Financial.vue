@@ -293,9 +293,10 @@ const pageUrl = (page) => {
                     <div class="w-10 h-10 bg-white/80 rounded-full flex items-center justify-center shadow">
                         🔔
                     </div>
-                    <div class="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center shadow">
-                        <LogOut class=" text-white" />
-                    </div>
+                    <Link :href="route('logout')" method="post" as="button"
+                        class="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center shadow">
+                        <LogOut class="text-white w-5 h-5" />
+                    </Link>
                 </div>
             </div>
         </div>
