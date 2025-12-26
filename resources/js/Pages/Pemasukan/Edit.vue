@@ -14,7 +14,7 @@ const categories = [
     { id: 7, label: "Hasil Investasi", icon: "📈" },
     { id: 8, label: "Hadiah", icon: "🎁" },
     { id: 9, label: "Bonus", icon: "🏆" },
-    { id: 10, label: "Lainnya", icon: "📦" },
+    { id: 26, label: "Lainnya", icon: "📦" },
 ];
 
 const form = useForm({
@@ -64,7 +64,7 @@ function goBack() {
                             <TrendingUp class="h-5 w-5 text-white" />
                         </div>
                         <div>
-                            <h1 class="text-lg font-bold text-foreground">Edit Pengeluaran</h1>
+                            <h1 class="text-lg font-bold text-foreground">Edit Pemasukan</h1>
                             <p class="text-xs text-slate-500">Catat investasi Anda</p>
                         </div>
                     </div>

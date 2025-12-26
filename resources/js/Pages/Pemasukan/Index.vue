@@ -1,5 +1,5 @@
 <script setup>
-import { ArrowLeft, TrendingUp, Edit2, Trash2 } from 'lucide-vue-next'
+import { ArrowLeft, TrendingUp, Edit2, Trash2, CircleCheck } from 'lucide-vue-next'
 import { defineProps, ref, onMounted, watch } from 'vue';
 import MainTotalDetail from '@/Components/MainTotalDetail.vue';
 import RiwayatTransaksiDetail from '@/Components/RiwayatTransaksiDetail.vue';

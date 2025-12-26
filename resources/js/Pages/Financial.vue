@@ -379,7 +379,7 @@ const pageUrl = (page) => {
                     <RedoDot :size="18" />
                 </div>
 
-                <p class="text-lg text-gray-500">Self Rewrd</p>
+                <p class="text-lg text-gray-500">Self Reward</p>
                 <p class="text-xl md:text-3xl font-bold text-yellow-600">
                     Rp {{ Math.abs(totalSelfReward).toLocaleString('id-ID') }}
                 </p>

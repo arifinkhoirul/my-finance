@@ -14,7 +14,7 @@ const categories = [
     { id: 7, label: "Hasil Investasi", icon: "📈" },
     { id: 8, label: "Hadiah", icon: "🎁" },
     { id: 9, label: "Bonus", icon: "🏆" },
-    { id: 10, label: "Lainnya", icon: "📦" },
+    { id: 26, label: "Lainnya", icon: "📦" },
 ];
 
 

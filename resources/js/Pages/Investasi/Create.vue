@@ -13,7 +13,7 @@ const categories = [
     { id: 12, label: "Reksadana", icon: "📈" },
     { id: 13, label: "Emas", icon: "🪙" },
     { id: 14, label: "Properti", icon: "🏠" },
-    { id: 10, label: "Lainnya", icon: "📦" },
+    { id: 27, label: "Lainnya", icon: "📦" },
 ];
 
 const form = useForm({
