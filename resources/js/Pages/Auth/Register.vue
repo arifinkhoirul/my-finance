@@ -66,8 +66,8 @@ const submit = () => {
                         <div class="mt-1 flex items-center gap-2 rounded-xl  bg-gray-50 px-4 py-3">
                             <User class="h-5 w-5 text-gray-400" />
 
-                            <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required
-                                autofocus autocomplete="name" />
+                            <TextInput id="name" type="text" placeholder="Masukkan Username" class="mt-1 block w-full"
+                                v-model="form.name" required autofocus autocomplete="name" />
                         </div>
                         <InputError class="mt-2" :message="form.errors.email" />
                     </div>
@@ -77,8 +77,8 @@ const submit = () => {
                         <div class="mt-1 flex items-center gap-2 rounded-xl  bg-gray-50 px-4 py-3">
                             <Mail class="h-5 w-5 text-gray-400" />
 
-                            <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required
-                                autofocus autocomplete="username" />
+                            <TextInput id="email" type="email" placeholder="Masukkan Email" class="mt-1 block w-full"
+                                v-model="form.email" required autofocus autocomplete="username" />
                         </div>
                         <InputError class="mt-2" :message="form.errors.email" />
                     </div>
@@ -88,8 +88,9 @@ const submit = () => {
                         <div class="mt-1 flex items-center gap-2 rounded-xl border bg-gray-50 px-4 py-3">
                             <Lock class="h-5 w-5 text-gray-400" />
 
-                            <TextInput id="password" type="password" class="mt-1 block w-full" v-model="form.password"
-                                required autocomplete="new-password" />
+                            <TextInput id="password" type="password" placeholder="Masukkan Password"
+                                class="mt-1 block w-full" v-model="form.password" required
+                                autocomplete="new-password" />
                             <button type="button" @click="togglePassword">
                                 <Eye v-if="!showPassword" class="h-5 w-5 text-gray-400" />
                                 <EyeOff v-else class="h-5 w-5 text-gray-400" />
@@ -104,8 +105,9 @@ const submit = () => {
                         <div class="mt-1 flex items-center gap-2 rounded-xl border bg-gray-50 px-4 py-3">
                             <Lock class="h-5 w-5 text-gray-400" />
 
-                            <TextInput id="password_confirmation" type="password" class="mt-1 block w-full"
-                                v-model="form.password_confirmation" required autocomplete="new-password" />
+                            <TextInput id="password_confirmation" placeholder="Confirm Password" type="password"
+                                class="mt-1 block w-full" v-model="form.password_confirmation" required
+                                autocomplete="new-password" />
                             <button type="button" @click="togglePassword">
                                 <Eye v-if="!showPassword" class="h-5 w-5 text-gray-400" />
                                 <EyeOff v-else class="h-5 w-5 text-gray-400" />

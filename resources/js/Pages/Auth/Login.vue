@@ -74,8 +74,8 @@ const submit = () => {
                             <Mail class="h-5 w-5 text-gray-400" />
                             <!-- <input v-model="email" type="email" placeholder="nama@email.com"
                                 class="w-full bg-transparent outline-none text-sm" /> -->
-                            <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required
-                                autofocus autocomplete="username" />
+                            <TextInput id="email" type="email" placeholder="Masukkan Email " class="mt-1 block w-full"
+                                v-model="form.email" required autofocus autocomplete="username" />
                         </div>
                         <InputError class="mt-2" :message="form.errors.email" />
                     </div>
@@ -86,8 +86,9 @@ const submit = () => {
                             <Lock class="h-5 w-5 text-gray-400" />
                             <!-- <input v-model="password" :type="showPassword ? 'text' : 'password'"
                                 placeholder="Masukkan password" class="w-full bg-transparent outline-none text-sm" /> -->
-                            <TextInput id="password" type="password" class="mt-1 block w-full" v-model="form.password"
-                                required autocomplete="current-password" />
+                            <TextInput id="password" type="password" placeholder="Masukkan Password"
+                                class="mt-1 block w-full" v-model="form.password" required
+                                autocomplete="current-password" />
                             <button type="button" @click="togglePassword">
                                 <Eye v-if="!showPassword" class="h-5 w-5 text-gray-400" />
                                 <EyeOff v-else class="h-5 w-5 text-gray-400" />
