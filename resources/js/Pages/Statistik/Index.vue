@@ -438,7 +438,7 @@ const loadingPage = () => {
         </div>
     </transition>
 
-    <div class="min-h-screen bg-slate-100 p-4 space-y-6">
+    <div class="min-h-screen bg-slate-100 p-4 mb-[70px] space-y-6">
         <!-- skeleton laoding -->
         <div v-if="loading"
             class="animate-pulse relative overflow-hidden rounded-2xl w-full h-[50px] mb-3 bg-slate-500/80 p-10">
@@ -532,7 +532,6 @@ const loadingPage = () => {
             </div>
             <VueApexCharts type="bar" height="250" :options="barOptionsSelfReward" :series="barSeriesSelfReward" />
         </div>
-
 
     </div>
 

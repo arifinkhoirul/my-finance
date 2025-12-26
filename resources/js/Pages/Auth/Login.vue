@@ -6,7 +6,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import { Eye, EyeOff, Lock, Mail, Wallet } from 'lucide-vue-next';
+import { Eye, EyeOff, Lock, Mail, OctagonAlert, Wallet } from 'lucide-vue-next';
 
 defineProps({
     canResetPassword: {

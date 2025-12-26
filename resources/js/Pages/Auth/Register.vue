@@ -5,7 +5,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import { Lock, Mail, User, Wallet } from 'lucide-vue-next';
+import { Lock, Mail, OctagonAlert, User, Wallet } from 'lucide-vue-next';
 
 const form = useForm({
     name: '',
@@ -46,7 +46,17 @@ const submit = () => {
             </div>
 
             <!-- Card -->
-            <div class="mt-1 rounded-3xl p-6 pt-1 shadow-xl">
+            <div class="mt-10 rounded-3xl p-6 pt-1 shadow-xl">
+                <div class="animate-bounce bg-[#e0c6f544] mb-3 py-4 px-2 rounded-lg flex gap-2 shadow-lg">
+                    <OctagonAlert class="text-xl" />
+                    <p class="text-sm">
+                        Mohon <b>jangan menggunakan email pribadi</b> saat registrasi.
+                        Gunakan email contoh seperti <b>namaanda@example.com</b>.
+                        Pastikan Anda mengingat password karena saat ini <b>fitur reset password belum tersedia</b>.
+                        Terima kasih 🙏
+                    </p>
+                </div>
+
                 <!-- Tabs -->
                 <div class="flex rounded-full bg-gray-100 p-1 mb-6">
                     <button class="flex-1 rounded-full py-2 text-sm text-gray-400">
@@ -58,6 +68,8 @@ const submit = () => {
                         Daftar
                     </button>
                 </div>
+
+
 
                 <!-- templatea login -->
                 <form @submit.prevent="submit">
