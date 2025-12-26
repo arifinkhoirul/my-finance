@@ -24,7 +24,8 @@ import {
     BadgeCheck,
     X,
     CircleCheck,
-    LogOut
+    LogOut,
+    Heart
 } from 'lucide-vue-next'
 import { defineProps, ref, watch, onMounted, computed } from 'vue';
 import { usePage, Link } from '@inertiajs/vue3';
@@ -607,9 +608,9 @@ const pageUrl = (page) => {
                 </div>
 
                 <!-- Pengaturan -->
-                <Link>
+                <Link @click="loadingPage()" :href="route('dukungan.index')">
                     <div class="flex flex-col items-center hover:text-purple-700 text-gray-400">
-                        <Settings />
+                        <Heart />
                         <!-- <span class="text-xs mt-1">Pengaturan</span> -->
                     </div>
                 </Link>

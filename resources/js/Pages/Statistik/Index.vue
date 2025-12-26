@@ -28,7 +28,8 @@ import {
     ChartNoAxesCombined,
     ChartPie,
     ChartColumnBig,
-    ChartBarStacked
+    ChartBarStacked,
+    Heart
 } from 'lucide-vue-next'
 import { ref, onMounted, defineProps } from 'vue';
 import { Link } from '@inertiajs/vue3'
@@ -649,9 +650,10 @@ const loadingPage = () => {
             </div>
 
             <!-- Pengaturan -->
-            <Link>
-                <div class="flex flex-col items-center hover:text-purple-700 text-gray-400">
-                    <Settings />
+            <!-- Dukungan -->
+            <Link @click="loadingPage()" :href="route('dukungan.index')">
+                <div class="flex flex-col items-center hover:text-purple-700 text-gray-400 ">
+                    <Heart />
                     <!-- <span class="text-xs mt-1">Pengaturan</span> -->
                 </div>
             </Link>

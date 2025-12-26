@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DukunganController;
 use App\Http\Controllers\FinanceProfileController;
 use App\Http\Controllers\HandleInvestasicontroller;
 use App\Http\Controllers\HandlePemasukanController;
@@ -44,7 +45,6 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
 
 
-
     Route::get('/investasi', [InputDataController::class, 'createInvestasi'])->name('investasi.create');
     Route::post('/investasi-store', [InputDataController::class, 'storeInvestasi'])->name('investasi.store');
 
@@ -56,8 +56,6 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
 
 
-
-
     Route::get('/self-reward', [InputDataController::class, 'createSelfReward'])->name('self.reward.create');
     Route::post('/self-reward/store', [InputDataController::class, 'storeSelfReward'])->name('self.reward.store');
 
@@ -66,9 +64,6 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     Route::get('/self-reward/edit/{id}', [HandleSelfRewardController::class, 'editSelfReward'])->name('self.reward.edit');
     Route::put('/self-reward/update/{id}', [HandleSelfRewardController::class, 'updateSelfReward'])->name('self.reward.update');
-
-
-
 
 
 
@@ -89,6 +84,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     Route::get('/myfinance/profile', [FinanceProfileController::class, 'myProfile'])->name('myProfile.index');
 
+    Route::get('/dukungan', [DukunganController::class, 'indexDukungan'])->name('dukungan.index');
+    Route::post('/dukungan/store', [DukunganController::class, 'storeDukungan'])->name('dukungan.store');
 });
 
 

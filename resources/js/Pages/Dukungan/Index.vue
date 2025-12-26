@@ -13,51 +13,51 @@ import {
     RedoDot,
     ChevronRight,
     LogOut,
+    Coffee,
     Heart,
+    Stethoscope,
+    CircleCheck,
+    X,
+    MessageCircle
 } from 'lucide-vue-next'
-import ProfileItem from '@/Components/ProfileItem.vue';
-import { defineProps, ref, onMounted } from 'vue';
-import { Link } from '@inertiajs/vue3';
+import { ref, onMounted, watch } from 'vue';
+import { Link, useForm, usePage } from '@inertiajs/vue3';
 
 
-defineProps({
-    userName: String,
-    userEmail: String,
-    userBergabung: String,
-    totalTransaksi: Number
+
+const page = usePage()
+
+const form = useForm({
+    user_id: page.props.user.id,
+    nama_samaran: null,
+    description: null
 })
 
 
+const showFlash = ref(false)
 
 
-const formatDate = (date) => {
-    const d = new Date(date)
-    const now = new Date()
-
-    const isToday =
-        d.getDate() === now.getDate() &&
-        d.getMonth() === now.getMonth() &&
-        d.getFullYear() === now.getFullYear()
-
-    const yesterday = new Date()
-    yesterday.setDate(now.getDate() - 1)
-
-    const isYesterday =
-        d.getDate() === yesterday.getDate() &&
-        d.getMonth() === yesterday.getMonth() &&
-        d.getFullYear() === yesterday.getFullYear()
-
-    const time = d.toLocaleTimeString('id-ID')
-
-    // if (isToday) return `Hari ini, ${time}`
-    // if (isYesterday) return `Kemarin, ${time}`
-
-    return d.toLocaleDateString('id-ID', {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric'
+function submit() {
+    form.post(route('dukungan.store'), {
+        onSuccess: () => {
+            form.reset()
+            showFlash.value = true
+        }
     })
 }
+
+
+watch(
+    () => page.props.flash?.message,
+    (message) => {
+        if (message) {
+            setTimeout(() => {
+                showFlash.value = false
+            }, 3000)
+        }
+    },
+    { immediate: true }
+)
 
 
 // ------------------------------------
@@ -126,6 +126,25 @@ const loadingPage = () => {
 
 
 <template>
+    <!-- flash message -->
+    <Transition enter-active-class="transition ease-out duration-300" enter-from-class="opacity-0 translate-y-4"
+        enter-to-class="opacity-100 translate-y-0" leave-active-class="transition ease-in duration-300"
+        leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 translate-y-4">
+        <div v-if="showFlash"
+            class="fixed top-14 left-5 right-5 z-50 flex items-center gap-3 rounded-2xl bg-white px-5 py-2 text-black shadow-xl shadow-emerald-700/30">
+            <CircleCheck class="text-green-500 h-8 w-10" />
+
+            <p class="text-md">
+                {{ page.props.flash.message }}
+                <!-- Kamu berhasil menambahkan pemasukan -->
+            </p>
+
+            <button @click="showFlash = false" class="ml-2  rounded-full p-1 hover:bg-white/20">
+                <X class="h-4 w-4" />
+            </button>
+        </div>
+    </Transition>
+
     <!-- pokemon loading -->
     <transition name="fade">
         <div v-if="moveLoadingPage"
@@ -134,7 +153,7 @@ const loadingPage = () => {
         </div>
     </transition>
 
-    <div class="min-h-screen bg-gray-100 h-[1200px]">
+    <div class="min-h-screen bg-gray-100 h-[1350px]">
         <!-- skeleton laoding -->
         <!-- Header -->
         <div :class="loading ? '' : 'ungu-sesuai'" class="pt-6 pb-20 relative">
@@ -146,43 +165,42 @@ const loadingPage = () => {
                     <ArrowLeft size="20" />
                 </Link>
                 <!-- </a> -->
-                <h1 class="text-lg font-semibold">Profil Saya</h1>
+                <h1 class="text-lg font-semibold">Dukungan Kami</h1>
             </div>
         </div>
 
-        <!-- Profile Card -->
+        <!-- cofffe  -->
         <div class="relative -mt-16 px-4">
             <!-- skeleton laoding -->
             <div v-if="loading"
                 class="animate-pulse relative overflow-hidden rounded-2xl w-full h-[300px] mb-3 bg-slate-500/80 p-10">
             </div>
             <div v-else class="bg-white rounded-2xl shadow p-6 text-center">
-                <!-- Avatar -->
-                <div class="relative inline-block">
-                    <img src="https://images.pexels.com/photos/210600/pexels-photo-210600.jpeg" loading="lazy"
-                        class="w-24 h-24 rounded-full object-cover border-4 border-white" />
-                    <!-- <button class="absolute bottom-0 right-0 ungu-sesuai p-2 rounded-full text-white shadow">
-                        <Camera size="16" />
-                    </button> -->
-                </div>
-
-                <!-- Name -->
-                <h2 class="mt-4 text-lg font-bold">{{ userName }}</h2>
-                <p class="text-sm text-gray-500">{{ userEmail }}</p>
-
-                <!-- Divider -->
-                <div class="my-4 h-px bg-gray-200"></div>
-
-                <!-- Stats -->
-                <div class="flex justify-around">
-                    <div>
-                        <p class="text-purpl color-ungu-sesuai font-bold text-lg">{{ totalTransaksi }}</p>
-                        <p class="text-xs text-gray-500">Transaksi</p>
+                <div class="bg-card rounded-2xl p-6 shadow-card text-center">
+                    <div
+                        class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-pink-500 to-orange-400 flex items-center justify-center">
+                        <Coffee class="w-10 h-10 text-white" />
                     </div>
-                    <div>
-                        <p class="color-ungu-sesuai font-bold text-lg">{{ formatDate(userBergabung) }}</p>
-                        <p class="text-xs text-gray-500">Bergabung</p>
+                    <h2 class="text-xl font-bold text-foreground mb-2">
+                        Traktir Developer ☕
+                    </h2>
+                    <p class="text-sm text-muted-foreground mb-4 leading-relaxed">
+                        Halo! 👋 Kalau aplikasi ini membantu kamu mengatur keuangan,
+                        mungkin kamu bisa traktir developer secangkir kopi?
+                    </p>
+                    <div class="bg-muted/30 rounded-xl p-4 mb-4">
+                        <p class="text-sm text-foreground italic">
+                            "Setiap donasi kecil itu seperti pelukan hangat buat developer
+                            yang begadang bikin fitur baru! 🥹✨"
+                        </p>
                     </div>
+                    <button
+                        class="w-full bg-gradient-to-r from-pink-500 to-orange-400 hover:from-pink-600 hover:to-orange-500 text-white font-semibold py-3 rounded-2xl shadow-lg transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]">
+                        Sawer di Saweria 🎉
+                    </button>
+                    <p class="text-xs text-muted-foreground mt-3">
+                        Tenang, gak dipaksa kok! Tapi kalau mau, kita terima dengan senang hati 😄
+                    </p>
                 </div>
             </div>
         </div>
@@ -195,40 +213,81 @@ const loadingPage = () => {
             </div>
             <!-- Informasi Pribadi -->
             <div v-else class="bg-white rounded-2xl p-4 shadow">
-                <h3 class="text-sm font-semibold mb-3">Informasi Pribadi</h3>
-                <ProfileItem icon="User" title="Nama Lengkap" :value="userName" />
-                <ProfileItem icon="Mail" title="Email" :value="userEmail" />
-                <ProfileItem icon="Phone" title="Nomor Telepon" value="Fitur belum tersedia" />
-                <ProfileItem icon="MapPin" title="Lokasi" value="Fitur belum tersedia" />
+                <div class="flex justify-around text-center">
+                    <div>
+                        <p class="text-2xl">☕</p>
+                        <p class="text-xs text-muted-foreground">Kopi diminum</p>
+                        <p class="text-lg font-bold text-primary">42</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl">🐛</p>
+                        <p class="text-xs text-muted-foreground">Bug diperbaiki</p>
+                        <p class="text-lg font-bold text-primary">127</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl">💜</p>
+                        <p class="text-xs text-muted-foreground">Donatur baik</p>
+                        <p class="text-lg font-bold text-primary">23</p>
+                    </div>
+                </div>
             </div>
+        </div>
 
 
-            <!-- skeleteo loading -->
+        <!-- kritik dan saran -->
+        <div class="px-4 mt-6 space-y-4">
+            <!-- skeleton laoding -->
             <div v-if="loading"
                 class="animate-pulse relative overflow-hidden rounded-2xl w-ful h-[300px] mb-3 bg-slate-500/80 p-10">
             </div>
-            <!-- Pengaturan -->
-            <div v-else class="bg-white rounded-2xl p-4 shadow">
-                <h3 class="text-sm font-semibold mb-3">Pengaturan</h3>
+            <div v-else class="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+                <!-- Header -->
+                <div class="flex items-center gap-2">
+                    <div class="w-4 h-4 rounded-full text-purple-700 flex items-center justify-center">
+                        <MessageCircle />
+                    </div>
+                    <h2 class="text-lg font-semibold text-gray-900">
+                        Kritik &amp; Saran
+                    </h2>
+                </div>
 
-                <ProfileItem icon="Bell" title="Notifikasi" value="Fitur belum tersedia" />
-                <ProfileItem icon="Shield" title="Keamanan" value="Fitur belum tersedia" />
-                <ProfileItem icon="CreditCard" title="Metode Pembayaran" value="Fitur belum tersedia" />
-                <ProfileItem icon="HelpCircle" title="Dukungan & Bantuan" value="Fitur belum tersedia" />
+                <p class="text-sm text-gray-500 leading-relaxed">
+                    Punya ide keren atau nemuin bug yang bikin kesel?
+                    Ceritain aja, kita dengerin! 👂
+                </p>
+
+                <!-- Input Nama -->
+                <input type="text" placeholder="Nama kamu (opsional)" v-model="form.nama_samaran" class="w-full rounded-xl px-4 py-3 bg-[#F6F5FF]
+                     text-sm placeholder-gray-400
+                     focus:outline-none focus:ring-2 focus:ring-purple-400" />
+
+                <!-- Textarea -->
+                <textarea rows="4" v-model="form.description"
+                    placeholder="Tulis kritik atau saran kamu di sini... Bebas curhat juga boleh! 😄" class="w-full rounded-xl px-4 py-3 bg-[#F6F5FF]
+                     text-sm placeholder-gray-400 resize-none
+                     focus:outline-none focus:ring-2 focus:ring-purple-400"></textarea>
+                <p v-if="form.errors.description" class="text-red-600">{{ form.errors.description }}</p>
+
+                <!-- Button -->
+                <button @click="submit()" class="w-full bg-[#5F42F0] hover:bg-[#5236e6]
+                     text-white font-semibold py-3 rounded-full
+                     flex items-center justify-center gap-2 transition">
+                    <span>♡</span>
+                    Kirim Masukan
+                </button>
             </div>
 
-
-            <!-- skeleteo loading -->
+            <!-- skeleton laoding -->
             <div v-if="loading"
-                class="animate-pulse relative overflow-hidden rounded-2xl w-ful h-[80px] mb-3 bg-slate-500/80 p-10">
+                class="animate-pulse relative overflow-hidden rounded-2xl w-ful h-[50px] mb-3 bg-slate-500/80 p-10">
             </div>
-            <!-- Logout -->
-            <button v-else
-                class="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-red-100 tepurplungu-sesuai font-semibold">
-                <LogOut size="18" />
-                Keluar dari Akun
-            </button>
+            <!-- Thank You Card -->
+            <div v-else class="bg-[#ebe9f7] rounded-2xl p-4 text-center text-sm text-gray-700">
+                Terima kasih sudah menggunakan aplikasi ini! ✨
+            </div>
+
         </div>
+
 
         <!-- Backdrop -->
         <transition name="fade">
@@ -346,8 +405,8 @@ const loadingPage = () => {
                 </div>
 
                 <!-- Dukungan -->
-                <Link @click="loadingPage()" :href="route('dukungan.index')">
-                    <div class="flex flex-col items-center hover:text-purple-700 text-gray-400 ">
+                <Link>
+                    <div class="flex flex-col items-center hover:text-purple-700 text-purple-700 ">
                         <Heart />
                         <!-- <span class="text-xs mt-1">Pengaturan</span> -->
                     </div>
@@ -355,7 +414,7 @@ const loadingPage = () => {
 
                 <!-- Profil -->
                 <Link @click="loadingPage()" :href="route('myProfile.index')">
-                    <div class="flex flex-col items-center hover:text-purple-700 text-purple-700  ">
+                    <div class="flex flex-col items-center hover:text-purple-700  ">
                         <User />
                         <!-- <span class="text-xs mt-1">Profil</span> -->
                     </div>
