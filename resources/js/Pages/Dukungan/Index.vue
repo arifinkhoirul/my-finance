@@ -190,14 +190,16 @@ const loadingPage = () => {
                     </p>
                     <div class="bg-muted/30 rounded-xl p-4 mb-4">
                         <p class="text-sm text-foreground italic">
-                            "Setiap donasi kecil itu seperti pelukan hangat buat developer
+                            "Setiap dukungan kecil itu seperti pelukan hangat buat developer
                             yang begadang bikin fitur baru! 🥹✨"
                         </p>
                     </div>
-                    <button
-                        class="w-full bg-gradient-to-r from-pink-500 to-orange-400 hover:from-pink-600 hover:to-orange-500 text-white font-semibold py-3 rounded-2xl shadow-lg transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]">
-                        Sawer di Saweria 🎉
-                    </button>
+                    <a href="https://saweria.co/irularifin" target="blank">
+                        <button
+                            class="w-full bg-gradient-to-r from-pink-500 to-orange-400 hover:from-pink-600 hover:to-orange-500 text-white font-semibold py-3 rounded-2xl shadow-lg transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]">
+                            Sawer di Saweria 🎉
+                        </button>
+                    </a>
                     <p class="text-xs text-muted-foreground mt-3">
                         Tenang, gak dipaksa kok! Tapi kalau mau, kita terima dengan senang hati 😄
                     </p>
@@ -217,17 +219,17 @@ const loadingPage = () => {
                     <div>
                         <p class="text-2xl">☕</p>
                         <p class="text-xs text-muted-foreground">Kopi diminum</p>
-                        <p class="text-lg font-bold text-primary">42</p>
+                        <p class="text-lg font-bold text-primary">12</p>
                     </div>
                     <div>
                         <p class="text-2xl">🐛</p>
                         <p class="text-xs text-muted-foreground">Bug diperbaiki</p>
-                        <p class="text-lg font-bold text-primary">127</p>
+                        <p class="text-lg font-bold text-primary">2</p>
                     </div>
                     <div>
                         <p class="text-2xl">💜</p>
                         <p class="text-xs text-muted-foreground">Donatur baik</p>
-                        <p class="text-lg font-bold text-primary">23</p>
+                        <p class="text-lg font-bold text-primary">15</p>
                     </div>
                 </div>
             </div>

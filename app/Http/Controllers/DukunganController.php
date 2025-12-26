@@ -23,7 +23,7 @@ class DukunganController extends Controller
 
         $validated = $request->validate([
             'user_id' => 'required',
-            'nama_samaran' => 'required',
+            // 'nama_samaran' => 'required',
             'description' => 'required',
 
         ],
